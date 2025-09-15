@@ -311,6 +311,109 @@
         color: #666;
       }
     }
+
+    /* Novos estilos para a funcionalidade de download */
+    .linkedin-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: rgba(10, 102, 194, 0.1);
+      border-radius: 8px;
+      margin-top: 16px;
+      border-left: 4px solid #0A66C2;
+    }
+    
+    .linkedin-badge i {
+      color: #0A66C2;
+      font-size: 24px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.active .modal-content {
+      transform: translateY(0);
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent);
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .download-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .download-btn {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .download-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+    
+    .download-btn i {
+      font-size: 24px;
+    }
+    
+    .loading-bar {
+      height: 4px;
+      width: 0;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 12px;
+      transition: width 0.5s ease;
+    }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -352,6 +455,14 @@
           <span class="muted">Resumo Profissional</span>
         </div>
         <p id="aboutText">Profissional dedicado com experiência em diferentes áreas, buscando contribuir com o crescimento da empresa através de meus serviços, agregando valor tanto para a organização quanto para meu desenvolvimento profissional. Comprometido com a qualidade do trabalho e aberto a novos aprendizados.</p>
+        
+        <div class="linkedin-badge">
+          <i class="fab fa-linkedin"></i>
+          <div>
+            <strong>Conecte-se comigo no LinkedIn</strong>
+            <div><a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">linkedin.com/in/wesleytelesoficial</a></div>
+          </div>
+        </div>
       </div>
       
       <div class="card" id="exp" style="margin-top:20px">
@@ -462,8 +573,13 @@
           <span>Avenida João Paulo II, 180, Padre Libério, 35660-286</span>
         </div>
         
+        <div class="contact-item">
+          <i class="fab fa-linkedin"></i>
+          <a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">wesleytelesoficial</a>
+        </div>
+        
         <hr>
-        <button onclick="gerarPDF()">
+        <button onclick="showDownloadOptions()">
           <i class="fas fa-download"></i> Baixar Currículo em PDF
         </button>
         
@@ -474,22 +590,158 @@
     </aside>
   </main>
   
+  <!-- Modal de Download -->
+  <div class="modal" id="downloadModal">
+    <div class="modal-content">
+      <h2><i class="fas fa-download"></i> Escolha o Formato</h2>
+      <p>Selecione como você gostaria de baixar meu currículo:</p>
+      
+      <div class="download-options">
+        <button class="download-btn" onclick="downloadPDF('standard')">
+          <i class="fas fa-file-pdf"></i>
+          <span>PDF Padrão</span>
+        </button>
+        
+        <button class="download-btn" onclick="downloadPDF('creative')">
+          <i class="fas fa-paint-brush"></i>
+          <span>PDF Criativo</span>
+        </button>
+      </div>
+      
+      <div class="loading-bar" id="loadingBar"></div>
+      
+      <p style="margin-top: 20px; font-size: 14px; color: #666;">
+        <i class="fas fa-info-circle"></i> O PDF criativo inclui visualizações interativas das suas habilidades!
+      </p>
+    </div>
+  </div>
+  
   <footer class="container">
     <p>© 2025 Wesley de Sousa Teles — Currículo Responsivo</p>
   </footer>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-    function gerarPDF() {
+    // Função para mostrar o modal de download
+    function showDownloadOptions() {
+      const modal = document.getElementById('downloadModal');
+      modal.classList.add('active');
+      
+      // Adicionar evento para fechar o modal ao clicar fora
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+    }
+    
+    // Função para criar confetti
+    function createConfetti() {
+      const colors = ['#0b74ef', '#46a5ff', '#085bbc', '#ff6b6b', '#4ecdc4', '#ffd166'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        
+        document.body.appendChild(confetti);
+        
+        // Animação do confetti
+        const animation = confetti.animate([
+          { 
+            top: '0',
+            opacity: 1,
+            transform: 'rotate(0deg)'
+          },
+          { 
+            top: '100vh',
+            opacity: 0,
+            transform: 'rotate(' + (Math.random() * 360) + 'deg)'
+          }
+        ], {
+          duration: Math.random() * 2000 + 2000,
+          easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+        });
+        
+        animation.onfinish = () => {
+          confetti.remove();
+        };
+      }
+    }
+    
+    // Função para gerar PDF com efeitos visuais
+    function downloadPDF(type) {
+      const loadingBar = document.getElementById('loadingBar');
+      const modal = document.getElementById('downloadModal');
+      
+      // Iniciar animação da barra de progresso
+      loadingBar.style.width = '0';
+      setTimeout(() => {
+        loadingBar.style.width = '100%';
+      }, 10);
+      
+      // Configurações do PDF
       const elemento = document.getElementById("curriculo");
       const opt = {
-        margin: 0.5,
+        margin: [5, 5, 5, 5],
         filename: 'curriculo_wesley_teles.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
-      html2pdf().set(opt).from(elemento).save();
+      
+      // Configurações adicionais para o PDF criativo
+      if (type === 'creative') {
+        // Adicionar elementos visuais especiais antes da conversão
+        const originalBackground = document.body.style.background;
+        document.body.style.background = '#f0f8ff';
+        
+        // Adicionar um cabeçalho especial para o PDF
+        const pdfHeader = document.createElement('div');
+        pdfHeader.innerHTML = `
+          <div style="text-align: center; padding: 10px; background: linear-gradient(90deg, #0b74ef, #46a5ff); color: white; border-radius: 8px; margin-bottom: 20px;">
+            <h1 style="margin: 0; font-size: 24px;">Wesley de Sousa Teles</h1>
+            <p style="margin: 5px 0;">Desenvolvimento Profissional | Carreira</p>
+          </div>
+        `;
+        elemento.insertBefore(pdfHeader, elemento.firstChild);
+        
+        // Gerar PDF com estilos especiais
+        setTimeout(() => {
+          html2pdf().set(opt).from(elemento).save().then(() => {
+            // Remover elementos adicionados após a geração
+            pdfHeader.remove();
+            document.body.style.background = originalBackground;
+            
+            // Efeito de confetti
+            createConfetti();
+            
+            // Fechar o modal após o download
+            setTimeout(() => {
+              modal.classList.remove('active');
+              loadingBar.style.width = '0';
+            }, 1000);
+          });
+        }, 1500);
+      } else {
+        // PDF padrão
+        setTimeout(() => {
+          html2pdf().set(opt).from(elemento).save().then(() => {
+            // Efeito de confetti
+            createConfetti();
+            
+            // Fechar o modal após o download
+            setTimeout(() => {
+              modal.classList.remove('active');
+              loadingBar.style.width = '0';
+            }, 1000);
+          });
+        }, 1000);
+      }
     }
     
     // Adiciona data atual para impressão
@@ -501,4 +753,3 @@
   </script>
 </body>
 </html>
-
