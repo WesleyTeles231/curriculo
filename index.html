@@ -16,6 +16,8 @@
             --border: #e1e5eb;
             --success: #10b981;
             --linkedin: #0a66c2;
+            --whatsapp: #25d366;
+            --instagram: #e4405f;
             --certificate: #f8f9fa;
         }
         
@@ -261,6 +263,14 @@
             width: 24px;
             text-align: center;
             color: var(--accent);
+        }
+        
+        .contact-item i.fa-whatsapp {
+            color: var(--whatsapp);
+        }
+        
+        .contact-item i.fa-instagram {
+            color: var(--instagram);
         }
         
         .goals-grid {
@@ -661,6 +671,7 @@
             text-align: center;
             display: block;
             margin: 20px 0;
+            color: #0b74ef;
         }
         
         .certificate-view .signature {
@@ -675,6 +686,41 @@
             text-align: center;
             margin-top: 30px;
             color: #666;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-link.whatsapp {
+            background: var(--whatsapp);
+        }
+        
+        .social-link.instagram {
+            background: var(--instagram);
+        }
+        
+        .social-link.linkedin {
+            background: var(--linkedin);
         }
     </style>
 </head>
@@ -694,6 +740,18 @@
                         <div><i class="fas fa-phone"></i> (37) 98411-7230</div>
                         <div><i class="fas fa-envelope"></i> wwteles80@gmail.com</div>
                         <div><i class="fas fa-birthday-cake"></i> 25 anos</div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://wa.me/5537984117230" class="social-link whatsapp" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/wesleytelesoficial" class="social-link instagram" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/wesleytelesoficial" class="social-link linkedin" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
                     </div>
                     
                     <nav>
@@ -784,6 +842,10 @@
                         <div class="certificate-detail">
                             <span class="detail-label">Instituição</span>
                             <span class="detail-value">Instituto Federal do Rio Grande do Sul</span>
+                        </div>
+                        <div class="certificate-detail">
+                            <span class="detail-label">Plataforma</span>
+                            <span class="detail-value">Aprenda Mais MEC</span>
                         </div>
                         <div class="certificate-detail">
                             <span class="detail-label">Conclusão</span>
@@ -883,6 +945,16 @@
                     <a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">wesleytelesoficial</a>
                 </div>
                 
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/5537984117230" target="_blank">(37) 98411-7230</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <a href="https://www.instagram.com/wesleytelesoficial" target="_blank">@wesleytelesoficial</a>
+                </div>
+                
                 <hr>
                 <button onclick="showDownloadOptions()">
                     <i class="fas fa-download"></i> Baixar Currículo em PDF
@@ -942,7 +1014,7 @@
                 
                 <span class="highlight">Wesley de Sousa Teles</span>
                 
-                <p>CPF nº <strong>15107119611</strong>, concluiu o curso de <strong>Recursos Humanos</strong>, com o aproveitamento de <strong>87,50%</strong> e duração de <strong>20 horas</strong>, no período de <strong>5 de abril de 2025 a 1 de maio de 2025</strong>, no âmbito da plataforma Aprenda Mais.</p>
+                <p>CPF nº <strong>15107119611</strong>, concluiu o curso de <strong>Recursos Humanos</strong>, com o aproveitamento de <strong>87,50%</strong> e duração de <strong>20 horas</strong>, no período de <strong>5 de abril de 2025 a 1 de maio de 2025</strong>, no âmbito da plataforma Aprenda Mais MEC.</p>
                 
                 <div class="signature">
                     <p>Bento Gonçalves, 1 de maio de 2025.</p>
