@@ -19,6 +19,7 @@
             --whatsapp: #25d366;
             --instagram: #e4405f;
             --certificate: #f8f9fa;
+            --current: #ffd700;
         }
         
         @media (prefers-color-scheme: dark) {
@@ -29,6 +30,7 @@
                 --text: #f2f2f2;
                 --border: #333;
                 --certificate: #2a2a2a;
+                --current: #ffbf00;
             }
         }
         
@@ -192,6 +194,13 @@
             background: linear-gradient(180deg, #fff, #fbfdff); 
             border: 1px solid rgba(10, 10, 10, 0.03);
             transition: transform 0.2s ease;
+            position: relative;
+        }
+        
+        .exp .item.current {
+            background: linear-gradient(135deg, #fffbe6, #fff6d6);
+            border: 2px solid var(--current);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
         }
         
         .exp .item:hover {
@@ -199,10 +208,29 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
         }
         
+        .current-badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: var(--current);
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
         @media (prefers-color-scheme: dark) {
             .exp .item { 
                 background: #2a2a2a; 
                 border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            
+            .exp .item.current {
+                background: linear-gradient(135deg, #333228, #3a3729);
+                border: 2px solid var(--current);
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
             }
         }
         
@@ -755,7 +783,7 @@
                 </div>
                 <div style="flex:1">
                     <h1 id="name">Wesley de Sousa Teles</h1>
-                    <p class="lead" id="title">Auxiliar • Pará de Minas, MG</p>
+                    <p class="lead" id="title">Auxiliar de Produção • Pará de Minas, MG</p>
                     
                     <div class="personal-info">
                         <div><i class="fas fa-map-marker-alt"></i> Pará de Minas, MG</div>
@@ -813,6 +841,14 @@
                     <span class="muted">Histórico de Trabalho</span>
                 </div>
                 <div class="exp" id="expList">
+                    <!-- Nova experiência com destaque -->
+                    <div class="item current">
+                        <div class="current-badge">Atual</div>
+                        <strong>Auxiliar de Produção - Injeção de Finos</strong>
+                        <div class="muted">Ferguminas Siderurgia | Pará de Minas, MG</div>
+                        <div class="muted">Nov 2024 - Atualmente</div>
+                    </div>
+                    
                     <div class="item">
                         <strong>Auxiliar</strong>
                         <div class="muted">Itambé | Pará de Minas, MG</div>
@@ -906,6 +942,8 @@
                     <li>Trabalho em equipe</li>
                     <li>Pontualidade</li>
                     <li>Conhecimento em tecnologia</li>
+                    <li>Processos de produção industrial</li>
+                    <li>Injeção de finos</li>
                 </ul>
             </div>
         </section>
@@ -927,11 +965,11 @@
                     </div>
                     <div class="goal-item">
                         <strong>Contrato</strong>
-                        Efectivo (CLT)
+                        Efetivo (CLT)
                     </div>
                     <div class="goal-item">
                         <strong>Senioridade</strong>
-                        Operacional/Administrativo 
+                        Operacional/Auxiliar
                     </div>
                 </div>
             </div>
@@ -1190,7 +1228,7 @@
             doc.setFontSize(14);
             doc.setFont(undefined, 'normal');
             doc.setTextColor(100, 100, 100);
-            doc.text("Auxiliar • Pará de Minas, MG", 105, 28, { align: 'center' });
+            doc.text("Auxiliar de Produção • Pará de Minas, MG", 105, 28, { align: 'center' });
             
             // Adicionar linha separadora
             doc.setDrawColor(200, 200, 200);
@@ -1226,15 +1264,22 @@
             
             doc.setFontSize(10);
             const experiences = [
-                { cargo: "Auxiliar", empresa: "Itambé | Pará de Minas, MG", periodo: "Jun 2025 - Jul 2025" },
-                { cargo: "Porteiro", empresa: "Delphos Segurança e Facilities | Pará de Minas, MG", periodo: "Dez 2024 - Mai 2025" },
-                { cargo: "Vendedor", empresa: "Léo Computadores | Santa Maria do Suaçuí, MG", periodo: "Nov 2018 - Ago 2024" }
+                { cargo: "Auxiliar de Produção - Injeção de Finos", empresa: "Ferguminas Siderurgia | Pará de Minas, MG", periodo: "Nov 2024 - Atualmente", current: true },
+                { cargo: "Auxiliar", empresa: "Itambé | Pará de Minas, MG", periodo: "Jun 2025 - Jul 2025", current: false },
+                { cargo: "Porteiro", empresa: "Delphos Segurança e Facilities | Pará de Minas, MG", periodo: "Dez 2024 - Mai 2025", current: false },
+                { cargo: "Vendedor", empresa: "Léo Computadores | Santa Maria do Suaçuí, MG", periodo: "Nov 2018 - Ago 2024", current: false }
             ];
             
             experiences.forEach(exp => {
                 if (y > 250) {
                     doc.addPage();
                     y = 20;
+                }
+                
+                if (exp.current) {
+                    doc.setFillColor(255, 215, 0);
+                    doc.rect(15, y - 5, 180, 20, 'F');
+                    doc.setTextColor(0, 0, 0);
                 }
                 
                 doc.setFont(undefined, 'bold');
@@ -1247,6 +1292,8 @@
                 
                 doc.text(exp.periodo, 25, y);
                 y += 8;
+                
+                doc.setTextColor(0, 0, 0);
             });
             
             updatePdfProgress(70, 'Adicionando formação acadêmica...');
@@ -1312,7 +1359,8 @@
             doc.setFontSize(10);
             const habilidades = [
                 "Atendimento ao cliente", "Vendas", "Segurança patrimonial",
-                "Trabalho em equipe", "Pontualidade", "Conhecimento em tecnologia"
+                "Trabalho em equipe", "Pontualidade", "Conhecimento em tecnologia",
+                "Processos de produção industrial", "Injeção de finos"
             ];
             
             habilidades.forEach((habilidade, index) => {
