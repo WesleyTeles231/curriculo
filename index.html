@@ -1,755 +1,1156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Currículo — Wesley Teles</title>
-  <style>
-    :root {
-      --accent: #0b74ef;
-      --accent-dark: #085bbc;
-      --bg: #f7f8fb;
-      --card: #ffffff;
-      --muted: #666;
-      --text: #333;
-      --border: #e1e5eb;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111;
-        --card: #1c1c1c;
-        --muted: #aaa;
-        --text: #f2f2f2;
-        --border: #333;
-      }
-    }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0 }
-    
-    body { 
-      margin: 0; 
-      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
-      background: var(--bg); 
-      color: var(--text);
-      line-height: 1.6;
-      transition: all .3s ease;
-    }
-    
-    header { 
-      background: linear-gradient(90deg, var(--accent), #46a5ff); 
-      color: white; 
-      padding: 24px 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    
-    .container { 
-      max-width: 1000px; 
-      margin: 24px auto; 
-      padding: 0 16px;
-    }
-    
-    .top { 
-      display: flex; 
-      gap: 24px; 
-      align-items: center; 
-      flex-wrap: wrap;
-    }
-    
-    .avatar { 
-      width: 120px; 
-      height: 120px; 
-      border-radius: 12px; 
-      background: #ddd; 
-      flex: 0 0 120px; 
-      overflow: hidden;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-    
-    .avatar img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      display: block;
-    }
-    
-    h1 { 
-      margin: 0; 
-      font-size: 28px;
-      font-weight: 700;
-    }
-    
-    .lead { 
-      margin: 8px 0 0; 
-      color: rgba(255, 255, 255, 0.95);
-      font-size: 18px;
-    }
-    
-    .personal-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 12px;
-      font-size: 14px;
-    }
-    
-    .personal-info div {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    
-    nav { 
-      display: flex; 
-      gap: 8px; 
-      margin-top: 16px; 
-      flex-wrap: wrap;
-    }
-    
-    nav a { 
-      color: rgba(255, 255, 255, 0.95); 
-      text-decoration: none; 
-      padding: 8px 14px; 
-      border-radius: 8px; 
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    
-    nav a.button { 
-      background: rgba(255, 255, 255, 0.12);
-    }
-    
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    main { 
-      display: grid; 
-      grid-template-columns: 1fr 360px; 
-      gap: 24px; 
-      margin-top: 24px;
-    }
-    
-    @media (max-width: 900px) { 
-      main { 
-        grid-template-columns: 1fr; 
-      } 
-      
-      .top { 
-        align-items: flex-start; 
-      } 
-    }
-    
-    .card { 
-      background: var(--card); 
-      padding: 20px; 
-      border-radius: 12px; 
-      box-shadow: 0 6px 18px rgba(10, 10, 10, 0.05); 
-      transition: all .3s ease;
-      border: 1px solid var(--border);
-    }
-    
-    .section-title { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--accent);
-    }
-    
-    .section-title strong {
-      font-size: 18px;
-      color: var(--accent);
-    }
-    
-    .muted { 
-      color: var(--muted);
-      font-size: 14px;
-    }
-    
-    .exp { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 16px;
-    }
-    
-    .exp .item { 
-      padding: 16px; 
-      border-radius: 10px; 
-      background: linear-gradient(180deg, #fff, #fbfdff); 
-      border: 1px solid rgba(10, 10, 10, 0.03);
-      transition: transform 0.2s ease;
-    }
-    
-    .exp .item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      .exp .item { 
-        background: #2a2a2a; 
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-    }
-    
-    .skill-bar { 
-      height: 10px; 
-      background: #eee; 
-      border-radius: 6px; 
-      overflow: hidden;
-      margin: 8px 0 16px;
-    }
-    
-    .skill-bar > i { 
-      display: block; 
-      height: 100%; 
-      background: var(--accent); 
-      width: 60%;
-      border-radius: 6px;
-    }
-    
-    footer { 
-      margin: 24px 0; 
-      text-align: center; 
-      color: var(--muted); 
-      font-size: 13px;
-    }
-    
-    button { 
-      cursor: pointer; 
-      padding: 12px 18px; 
-      border-radius: 8px; 
-      border: 0; 
-      background: var(--accent); 
-      color: white; 
-      font-weight: 600;
-      transition: all 0.2s ease;
-      width: 100%;
-      margin-top: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    button:hover { 
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(11, 116, 239, 0.25);
-    }
-    
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    
-    .contact-item i {
-      width: 24px;
-      text-align: center;
-      color: var(--accent);
-    }
-    
-    .goals-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    
-    .goal-item {
-      background: rgba(11, 116, 239, 0.08);
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-    }
-    
-    .goal-item strong {
-      display: block;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    
-    a:hover {
-      color: var(--accent-dark);
-      text-decoration: underline;
-    }
-    
-    .print-only {
-      display: none;
-    }
-    
-    @media print {
-      body {
-        background: white;
-        color: black;
-      }
-      
-      .card {
-        box-shadow: none;
-        border: 1px solid #ddd;
-      }
-      
-      button {
-        display: none;
-      }
-      
-      .print-only {
-        display: block;
-        margin-top: 20px;
-        font-size: 12px;
-        color: #666;
-      }
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo — Wesley Teles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #0b74ef;
+            --accent-dark: #085bbc;
+            --bg: #f7f8fb;
+            --card: #ffffff;
+            --muted: #666;
+            --text: #333;
+            --border: #e1e5eb;
+            --success: #10b981;
+            --linkedin: #0a66c2;
+            --certificate: #f8f9fa;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111;
+                --card: #1c1c1c;
+                --muted: #aaa;
+                --text: #f2f2f2;
+                --border: #333;
+                --certificate: #2a2a2a;
+            }
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0;
+        }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: var(--bg); 
+            color: var(--text);
+            line-height: 1.6;
+            transition: all .3s ease;
+        }
+        
+        header { 
+            background: linear-gradient(90deg, var(--accent), #46a5ff); 
+            color: white; 
+            padding: 24px 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container { 
+            max-width: 1000px; 
+            margin: 24px auto; 
+            padding: 0 16px;
+        }
+        
+        .top { 
+            display: flex; 
+            gap: 24px; 
+            align-items: center; 
+            flex-wrap: wrap;
+        }
+        
+        .avatar { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 12px; 
+            background: #ddd; 
+            flex: 0 0 120px; 
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .avatar img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+        }
+        
+        h1 { 
+            margin: 0; 
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .lead { 
+            margin: 8px 0 0; 
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 18px;
+        }
+        
+        .personal-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        
+        .personal-info div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        nav { 
+            display: flex; 
+            gap: 8px; 
+            margin-top: 16px; 
+            flex-wrap: wrap;
+        }
+        
+        nav a { 
+            color: rgba(255, 255, 255, 0.95); 
+            text-decoration: none; 
+            padding: 8px 14px; 
+            border-radius: 8px; 
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        nav a.button { 
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        main { 
+            display: grid; 
+            grid-template-columns: 1fr 360px; 
+            gap: 24px; 
+            margin-top: 24px;
+        }
+        
+        @media (max-width: 900px) { 
+            main { 
+                grid-template-columns: 1fr; 
+            } 
+            
+            .top { 
+                align-items: flex-start; 
+            } 
+        }
+        
+        .card { 
+            background: var(--card); 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 6px 18px rgba(10, 10, 10, 0.05); 
+            transition: all .3s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .section-title { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .section-title strong {
+            font-size: 18px;
+            color: var(--accent);
+        }
+        
+        .muted { 
+            color: var(--muted);
+            font-size: 14px;
+        }
+        
+        .exp { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px;
+        }
+        
+        .exp .item { 
+            padding: 16px; 
+            border-radius: 10px; 
+            background: linear-gradient(180deg, #fff, #fbfdff); 
+            border: 1px solid rgba(10, 10, 10, 0.03);
+            transition: transform 0.2s ease;
+        }
+        
+        .exp .item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .exp .item { 
+                background: #2a2a2a; 
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+        }
+        
+        .skill-bar { 
+            height: 10px; 
+            background: #eee; 
+            border-radius: 6px; 
+            overflow: hidden;
+            margin: 8px 0 16px;
+        }
+        
+        .skill-bar > i { 
+            display: block; 
+            height: 100%; 
+            background: var(--accent); 
+            width: 60%;
+            border-radius: 6px;
+        }
+        
+        footer { 
+            margin: 24px 0; 
+            text-align: center; 
+            color: var(--muted); 
+            font-size: 13px;
+        }
+        
+        button { 
+            cursor: pointer; 
+            padding: 12px 18px; 
+            border-radius: 8px; 
+            border: 0; 
+            background: var(--accent); 
+            color: white; 
+            font-weight: 600;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        button:hover { 
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(11, 116, 239, 0.25);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .contact-item i {
+            width: 24px;
+            text-align: center;
+            color: var(--accent);
+        }
+        
+        .goals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .goal-item {
+            background: rgba(11, 116, 239, 0.08);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .goal-item strong {
+            display: block;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-dark);
+            text-decoration: underline;
+        }
+        
+        .print-only {
+            display: none;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            button {
+                display: none;
+            }
+            
+            .print-only {
+                display: block;
+                margin-top: 20px;
+                font-size: 12px;
+                color: #666;
+            }
+        }
 
-    /* Novos estilos para a funcionalidade de download */
-    .linkedin-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px;
-      background: rgba(10, 102, 194, 0.1);
-      border-radius: 8px;
-      margin-top: 16px;
-      border-left: 4px solid #0A66C2;
-    }
-    
-    .linkedin-badge i {
-      color: #0A66C2;
-      font-size: 24px;
-    }
-    
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .modal.active {
-      display: flex;
-      opacity: 1;
-    }
-    
-    .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-    
-    .modal.active .modal-content {
-      transform: translateY(0);
-    }
-    
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: var(--accent);
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .download-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    
-    .download-btn {
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      background: var(--accent);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    .download-btn:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-    }
-    
-    .download-btn i {
-      font-size: 24px;
-    }
-    
-    .loading-bar {
-      height: 4px;
-      width: 0;
-      background: var(--accent);
-      border-radius: 2px;
-      margin-top: 12px;
-      transition: width 0.5s ease;
-    }
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* Novos estilos para a funcionalidade de download */
+        .linkedin-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(10, 102, 194, 0.1);
+            border-radius: 8px;
+            margin-top: 16px;
+            border-left: 4px solid var(--linkedin);
+        }
+        
+        .linkedin-badge i {
+            color: var(--linkedin);
+            font-size: 24px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .download-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .download-btn {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .download-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn i {
+            font-size: 24px;
+        }
+        
+        .loading-bar {
+            height: 4px;
+            width: 0;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-top: 12px;
+            transition: width 0.5s ease;
+        }
+        
+        .success-message {
+            display: none;
+            background: var(--success);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .floating-download {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(11, 116, 239, 0.3);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-download:hover {
+            transform: scale(1.1) translateY(-5px);
+            background: var(--accent-dark);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Estilos para a seção de certificados */
+        .certificate-section {
+            margin-top: 20px;
+        }
+        
+        .certificate-card {
+            background: var(--certificate);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .certificate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .certificate-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .certificate-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-detail {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+        }
+        
+        .certificate-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .certificate-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .certificate-btn:hover {
+            background: var(--accent-dark);
+        }
+        
+        .certificate-btn.outline {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .certificate-btn.outline:hover {
+            background: rgba(11, 116, 239, 0.1);
+        }
+        
+        .certificate-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .certificate-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .certificate-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #eee;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .close-modal:hover {
+            background: #ddd;
+        }
+        
+        .certificate-view {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-family: 'Times New Roman', serif;
+        }
+        
+        .certificate-view h2 {
+            text-align: center;
+            color: #0b74ef;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-size: 24px;
+        }
+        
+        .certificate-view p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .certificate-view .highlight {
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            display: block;
+            margin: 20px 0;
+        }
+        
+        .certificate-view .signature {
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+        
+        .certificate-view .footer {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="top">
-        <div class="avatar">
-          <img src="https://i.imgur.com/ne7twT3_d.webp?maxwidth=1520&fidelity=grand" alt="Wesley de Sousa Teles">
+    <header>
+        <div class="container">
+            <div class="top">
+                <div class="avatar">
+                    <img src="https://i.imgur.com/ne7twT3_d.webp?maxwidth=1520&fidelity=grand" alt="Wesley de Sousa Teles">
+                </div>
+                <div style="flex:1">
+                    <h1 id="name">Wesley de Sousa Teles</h1>
+                    <p class="lead" id="title">Auxiliar • Pará de Minas, MG</p>
+                    
+                    <div class="personal-info">
+                        <div><i class="fas fa-map-marker-alt"></i> Pará de Minas, MG</div>
+                        <div><i class="fas fa-phone"></i> (37) 98411-7230</div>
+                        <div><i class="fas fa-envelope"></i> wwteles80@gmail.com</div>
+                        <div><i class="fas fa-birthday-cake"></i> 25 anos</div>
+                    </div>
+                    
+                    <nav>
+                        <a href="#about">Sobre</a>
+                        <a href="#exp">Experiência</a>
+                        <a href="#education">Formação</a>
+                        <a href="#certificates">Certificados</a>
+                        <a href="#goals">Objetivos</a>
+                        <a class="button" href="#contact">Contato</a>
+                    </nav>
+                </div>
+            </div>
         </div>
-        <div style="flex:1">
-          <h1 id="name">Wesley de Sousa Teles</h1>
-          <p class="lead" id="title">Auxiliar • Pará de Minas, MG</p>
-          
-          <div class="personal-info">
-            <div><i class="fas fa-map-marker-alt"></i> Pará de Minas, MG</div>
-            <div><i class="fas fa-phone"></i> (37) 98411-7230</div>
-            <div><i class="fas fa-envelope"></i> wwteles80@gmail.com</div>
-            <div><i class="fas fa-birthday-cake"></i> 25 anos</div>
-          </div>
-          
-          <nav>
-            <a href="#about">Sobre</a>
-            <a href="#exp">Experiência</a>
-            <a href="#education">Formação</a>
-            <a href="#goals">Objetivos</a>
-            <a class="button" href="#contact">Contato</a>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
-  
-  <main class="container" id="curriculo">
-    <section>
-      <div class="card" id="about">
-        <div class="section-title">
-          <strong><i class="fas fa-user"></i> Sobre</strong>
-          <span class="muted">Resumo Profissional</span>
-        </div>
-        <p id="aboutText">Profissional dedicado com experiência em diferentes áreas, buscando contribuir com o crescimento da empresa através de meus serviços, agregando valor tanto para a organização quanto para meu desenvolvimento profissional. Comprometido com a qualidade do trabalho e aberto a novos aprendizados.</p>
-        
-        <div class="linkedin-badge">
-          <i class="fab fa-linkedin"></i>
-          <div>
-            <strong>Conecte-se comigo no LinkedIn</strong>
-            <div><a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">linkedin.com/in/wesleytelesoficial</a></div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="card" id="exp" style="margin-top:20px">
-        <div class="section-title">
-          <strong><i class="fas fa-briefcase"></i> Experiência Profissional</strong>
-          <span class="muted">Histórico de Trabalho</span>
-        </div>
-        <div class="exp" id="expList">
-          <div class="item">
-            <strong>Auxiliar</strong>
-            <div class="muted">Itambé | Pará de Minas, MG</div>
-            <div class="muted">Jun 2025 - Jul 2025</div>
-          </div>
-          
-          <div class="item">
-            <strong>Porteiro</strong>
-            <div class="muted">Delphos Segurança e Facilities | Pará de Minas, MG</div>
-            <div class="muted">Dez 2024 - Mai 2025</div>
-          </div>
-          
-          <div class="item">
-            <strong>Vendedor</strong>
-            <div class="muted">Léo Computadores | Santa Maria do Suaçuí, MG</div>
-            <div class="muted">Nov 2018 - Ago 2024</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="card" style="margin-top:20px" id="education">
-        <div class="section-title">
-          <strong><i class="fas fa-graduation-cap"></i> Formação Acadêmica</strong>
-          <span class="muted">Escolaridade</span>
-        </div>
-        <div class="exp">
-          <div class="item">
-            <strong>Ensino Médio (2º Grau)</strong>
-            <div class="muted">E.E. Hauy Petrucell Mayrink | Santa Maria do Suaçuí, MG</div>
-            <div class="muted">Jan 2006 - Ago 2025</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="card" style="margin-top:20px" id="skills">
-        <div class="section-title">
-          <strong><i class="fas fa-star"></i> Habilidades</strong>
-          <span class="muted">Competências</span>
-        </div>
-        <ul>
-          <li>Atendimento ao cliente</li>
-          <li>Vendas</li>
-          <li>Segurança patrimonial</li>
-          <li>Trabalho em equipe</li>
-          <li>Pontualidade</li>
-          <li>Conhecimento em tecnologia</li>
-        </ul>
-      </div>
-    </section>
+    </header>
+    
+    <main class="container" id="curriculo">
+        <section>
+            <div class="card" id="about">
+                <div class="section-title">
+                    <strong><i class="fas fa-user"></i> Sobre</strong>
+                    <span class="muted">Resumo Profissional</span>
+                </div>
+                <p id="aboutText">Profissional dedicado com experiência em diferentes áreas, buscando contribuir com o crescimento da empresa através de meus serviços, agregando valor tanto para a organização quanto para meu desenvolvimento profissional. Comprometido com a qualidade do trabalho e aberto a novos aprendizados.</p>
+                
+                <div class="linkedin-badge">
+                    <i class="fab fa-linkedin"></i>
+                    <div>
+                        <strong>Conecte-se comigo no LinkedIn</strong>
+                        <div><a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">linkedin.com/in/wesleytelesoficial</a></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" id="exp" style="margin-top:20px">
+                <div class="section-title">
+                    <strong><i class="fas fa-briefcase"></i> Experiência Profissional</strong>
+                    <span class="muted">Histórico de Trabalho</span>
+                </div>
+                <div class="exp" id="expList">
+                    <div class="item">
+                        <strong>Auxiliar</strong>
+                        <div class="muted">Itambé | Pará de Minas, MG</div>
+                        <div class="muted">Jun 2025 - Jul 2025</div>
+                    </div>
+                    
+                    <div class="item">
+                        <strong>Porteiro</strong>
+                        <div class="muted">Delphos Segurança e Facilities | Pará de Minas, MG</div>
+                        <div class="muted">Dez 2024 - Mai 2025</div>
+                    </div>
+                    
+                    <div class="item">
+                        <strong>Vendedor</strong>
+                        <div class="muted">Léo Computadores | Santa Maria do Suaçuí, MG</div>
+                        <div class="muted">Nov 2018 - Ago 2024</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top:20px" id="education">
+                <div class="section-title">
+                    <strong><i class="fas fa-graduation-cap"></i> Formação Acadêmica</strong>
+                    <span class="muted">Escolaridade</span>
+                </div>
+                <div class="exp">
+                    <div class="item">
+                        <strong>Ensino Médio (2º Grau)</strong>
+                        <div class="muted">E.E. Hauy Petrucell Mayrink | Santa Maria do Suaçuí, MG</div>
+                        <div class="muted">Jan 2006 - Ago 2025</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nova seção de certificados -->
+            <div class="card certificate-section" id="certificates" style="margin-top:20px">
+                <div class="section-title">
+                    <strong><i class="fas fa-certificate"></i> Certificados</strong>
+                    <span class="muted">Qualificações e Cursos</span>
+                </div>
+                
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-title">Recursos Humanos</div>
+                        <div class="certificate-badge">20 horas</div>
+                    </div>
+                    
+                    <div class="certificate-details">
+                        <div class="certificate-detail">
+                            <span class="detail-label">Instituição</span>
+                            <span class="detail-value">Instituto Federal do Rio Grande do Sul</span>
+                        </div>
+                        <div class="certificate-detail">
+                            <span class="detail-label">Conclusão</span>
+                            <span class="detail-value">Maio de 2025</span>
+                        </div>
+                        <div class="certificate-detail">
+                            <span class="detail-label">Aproveitamento</span>
+                            <span class="detail-value">87,50%</span>
+                        </div>
+                        <div class="certificate-detail">
+                            <span class="detail-label">Certificado</span>
+                            <span class="detail-value">Digital</span>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-actions">
+                        <button class="certificate-btn" onclick="viewCertificate()">
+                            <i class="fas fa-eye"></i> Visualizar
+                        </button>
+                        <button class="certificate-btn outline" onclick="downloadCertificate()">
+                            <i class="fas fa-download"></i> Baixar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top:20px" id="skills">
+                <div class="section-title">
+                    <strong><i class="fas fa-star"></i> Habilidades</strong>
+                    <span class="muted">Competências</span>
+                </div>
+                <ul>
+                    <li>Atendimento ao cliente</li>
+                    <li>Vendas</li>
+                    <li>Segurança patrimonial</li>
+                    <li>Trabalho em equipe</li>
+                    <li>Pontualidade</li>
+                    <li>Conhecimento em tecnologia</li>
+                </ul>
+            </div>
+        </section>
 
-    <aside>
-      <div class="card" id="goals">
-        <div class="section-title">
-          <strong><i class="fas fa-bullseye"></i> Objetivos</strong>
-          <span class="muted">Pretensões</span>
+        <aside>
+            <div class="card" id="goals">
+                <div class="section-title">
+                    <strong><i class="fas fa-bullseye"></i> Objetivos</strong>
+                    <span class="muted">Pretensões</span>
+                </div>
+                <div class="goals-grid">
+                    <div class="goal-item">
+                        <strong>Jornada</strong>
+                        Período Integral
+                    </div>
+                    <div class="goal-item">
+                        <strong>Salário</strong>
+                        R$ 1.800 - 3.000
+                    </div>
+                    <div class="goal-item">
+                        <strong>Contrato</strong>
+                        Efetivo (CLT)
+                    </div>
+                    <div class="goal-item">
+                        <strong>Senioridade</strong>
+                        Operacional/Auxiliar
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" id="contact" style="margin-top:20px">
+                <div class="section-title">
+                    <strong><i class="fas fa-address-card"></i> Contato</strong>
+                    <span class="muted">Fale comigo</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a id="emailLink" href="mailto:wwteles80@gmail.com">wwteles80@gmail.com</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span id="phone">(37) 98411-7230</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Pará de Minas, MG</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-home"></i>
+                    <span>Avenida João Paulo II, 180, Padre Libério, 35660-286</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">wesleytelesoficial</a>
+                </div>
+                
+                <hr>
+                <button onclick="showDownloadOptions()">
+                    <i class="fas fa-download"></i> Baixar Currículo em PDF
+                </button>
+                
+                <div id="successMessage" class="success-message">
+                    <i class="fas fa-check-circle"></i> Download realizado com sucesso!
+                </div>
+                
+                <div class="print-only">
+                    Currículo gerado em: <span id="data-geracao"></span>
+                </div>
+            </div>
+        </aside>
+    </main>
+    
+    <!-- Modal de Download -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-download"></i> Escolha o Formato</h2>
+            <p>Selecione como você gostaria de baixar meu currículo:</p>
+            
+            <div class="download-options">
+                <button class="download-btn" onclick="downloadPDF('standard')">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Padrão</span>
+                </button>
+                
+                <button class="download-btn" onclick="downloadPDF('creative')">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>PDF Criativo</span>
+                </button>
+            </div>
+            
+            <div class="loading-bar" id="loadingBar"></div>
+            
+            <p style="margin-top: 20px; font-size: 14px; color: #666;">
+                <i class="fas fa-info-circle"></i> O PDF criativo inclui visualizações interativas das suas habilidades!
+            </p>
         </div>
-        <div class="goals-grid">
-          <div class="goal-item">
-            <strong>Jornada</strong>
-            Período Integral
-          </div>
-          <div class="goal-item">
-            <strong>Salário</strong>
-            R$ 1.800 - 3.000
-          </div>
-          <div class="goal-item">
-            <strong>Contrato</strong>
-            Efetivo (CLT)
-          </div>
-          <div class="goal-item">
-            <strong>Senioridade</strong>
-            Operacional/Auxiliar
-          </div>
-        </div>
-      </div>
-      
-      <div class="card" id="contact" style="margin-top:20px">
-        <div class="section-title">
-          <strong><i class="fas fa-address-card"></i> Contato</strong>
-          <span class="muted">Fale comigo</span>
-        </div>
-        
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <a id="emailLink" href="mailto:wwteles80@gmail.com">wwteles80@gmail.com</a>
-        </div>
-        
-        <div class="contact-item">
-          <i class="fas fa-phone"></i>
-          <span id="phone">(37) 98411-7230</span>
-        </div>
-        
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>Pará de Minas, MG</span>
-        </div>
-        
-        <div class="contact-item">
-          <i class="fas fa-home"></i>
-          <span>Avenida João Paulo II, 180, Padre Libério, 35660-286</span>
-        </div>
-        
-        <div class="contact-item">
-          <i class="fab fa-linkedin"></i>
-          <a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank">wesleytelesoficial</a>
-        </div>
-        
-        <hr>
-        <button onclick="showDownloadOptions()">
-          <i class="fas fa-download"></i> Baixar Currículo em PDF
-        </button>
-        
-        <div class="print-only">
-          Currículo gerado em: <span id="data-geracao"></span>
-        </div>
-      </div>
-    </aside>
-  </main>
-  
-  <!-- Modal de Download -->
-  <div class="modal" id="downloadModal">
-    <div class="modal-content">
-      <h2><i class="fas fa-download"></i> Escolha o Formato</h2>
-      <p>Selecione como você gostaria de baixar meu currículo:</p>
-      
-      <div class="download-options">
-        <button class="download-btn" onclick="downloadPDF('standard')">
-          <i class="fas fa-file-pdf"></i>
-          <span>PDF Padrão</span>
-        </button>
-        
-        <button class="download-btn" onclick="downloadPDF('creative')">
-          <i class="fas fa-paint-brush"></i>
-          <span>PDF Criativo</span>
-        </button>
-      </div>
-      
-      <div class="loading-bar" id="loadingBar"></div>
-      
-      <p style="margin-top: 20px; font-size: 14px; color: #666;">
-        <i class="fas fa-info-circle"></i> O PDF criativo inclui visualizações interativas das suas habilidades!
-      </p>
     </div>
-  </div>
-  
-  <footer class="container">
-    <p>© 2025 Wesley de Sousa Teles — Currículo Responsivo</p>
-  </footer>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script>
-    // Função para mostrar o modal de download
-    function showDownloadOptions() {
-      const modal = document.getElementById('downloadModal');
-      modal.classList.add('active');
-      
-      // Adicionar evento para fechar o modal ao clicar fora
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-          modal.classList.remove('active');
+    
+    <!-- Modal do Certificado -->
+    <div class="certificate-modal" id="certificateModal">
+        <div class="certificate-modal-content">
+            <div class="close-modal" onclick="closeCertificateModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <h2>Certificado de Conclusão</h2>
+            
+            <div class="certificate-view">
+                <h2>certificado</h2>
+                
+                <p>O Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul,</p>
+                <p>sob CNPJ 10.637.926/0001-46, certifica que</p>
+                
+                <span class="highlight">Wesley de Sousa Teles</span>
+                
+                <p>CPF nº <strong>15107119611</strong>, concluiu o curso de <strong>Recursos Humanos</strong>, com o aproveitamento de <strong>87,50%</strong> e duração de <strong>20 horas</strong>, no período de <strong>5 de abril de 2025 a 1 de maio de 2025</strong>, no âmbito da plataforma Aprenda Mais.</p>
+                
+                <div class="signature">
+                    <p>Bento Gonçalves, 1 de maio de 2025.</p>
+                    <p>Certificado digital nº: 68137128-2c08-45b5-bfc8-505dac1f02d9</p>
+                </div>
+                
+                <div class="footer">
+                    <p>DADOS DO CURSO: Recursos Humanos</p>
+                    <p>CONTEÚDO PROGRAMÁTICO: Recrutamento, benefícios e folha de pagamento; Gerência de Recursos Humanos.</p>
+                </div>
+            </div>
+            
+            <div class="certificate-actions" style="margin-top: 20px; justify-content: center;">
+                <button class="certificate-btn" onclick="downloadCertificate()">
+                    <i class="fas fa-download"></i> Baixar Certificado
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-download" onclick="showDownloadOptions()">
+        <i class="fas fa-download"></i>
+        <div class="badge">!</div>
+    </div>
+    
+    <footer class="container">
+        <p>© 2025 Wesley de Sousa Teles — Currículo Responsivo</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Função para mostrar o modal de download
+        function showDownloadOptions() {
+            const modal = document.getElementById('downloadModal');
+            modal.classList.add('active');
+            
+            // Adicionar evento para fechar o modal ao clicar fora
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
         }
-      });
-    }
-    
-    // Função para criar confetti
-    function createConfetti() {
-      const colors = ['#0b74ef', '#46a5ff', '#085bbc', '#ff6b6b', '#4ecdc4', '#ffd166'];
-      
-      for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.width = (Math.random() * 10 + 5) + 'px';
-        confetti.style.height = (Math.random() * 10 + 5) + 'px';
-        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
         
-        document.body.appendChild(confetti);
+        // Função para criar confetti
+        function createConfetti() {
+            const colors = ['#0b74ef', '#46a5ff', '#085bbc', '#ff6b6b', '#4ecdc4', '#ffd166'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                document.body.appendChild(confetti);
+                
+                // Animação do confetti
+                const animation = confetti.animate([
+                    { 
+                        top: '0',
+                        opacity: 1,
+                        transform: 'rotate(0deg)'
+                    },
+                    { 
+                        top: '100vh',
+                        opacity: 0,
+                        transform: 'rotate(' + (Math.random() * 360) + 'deg)'
+                    }
+                ], {
+                    duration: Math.random() * 2000 + 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+        }
         
-        // Animação do confetti
-        const animation = confetti.animate([
-          { 
-            top: '0',
-            opacity: 1,
-            transform: 'rotate(0deg)'
-          },
-          { 
-            top: '100vh',
-            opacity: 0,
-            transform: 'rotate(' + (Math.random() * 360) + 'deg)'
-          }
-        ], {
-          duration: Math.random() * 2000 + 2000,
-          easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+        // Função para gerar PDF com efeitos visuais
+        function downloadPDF(type) {
+            const loadingBar = document.getElementById('loadingBar');
+            const modal = document.getElementById('downloadModal');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Iniciar animação da barra de progresso
+            loadingBar.style.width = '0';
+            setTimeout(() => {
+                loadingBar.style.width = '100%';
+            }, 10);
+            
+            // Configurações do PDF
+            const elemento = document.getElementById("curriculo");
+            const opt = {
+                margin: [5, 5, 5, 5],
+                filename: 'curriculo_wesley_teles.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Configurações adicionais para o PDF criativo
+            if (type === 'creative') {
+                // Adicionar elementos visuais especiais antes da conversão
+                const originalBackground = document.body.style.background;
+                document.body.style.background = '#f0f8ff';
+                
+                // Adicionar um cabeçalho especial para o PDF
+                const pdfHeader = document.createElement('div');
+                pdfHeader.innerHTML = `
+                    <div style="text-align: center; padding: 10px; background: linear-gradient(90deg, #0b74ef, #46a5ff); color: white; border-radius: 8px; margin-bottom: 20px;">
+                        <h1 style="margin: 0; font-size: 24px;">Wesley de Sousa Teles</h1>
+                        <p style="margin: 5px 0;">Desenvolvimento Profissional | Carreira</p>
+                    </div>
+                `;
+                elemento.insertBefore(pdfHeader, elemento.firstChild);
+                
+                // Gerar PDF com estilos especiais
+                setTimeout(() => {
+                    html2pdf().set(opt).from(elemento).save().then(() => {
+                        // Remover elementos adicionados após a geração
+                        pdfHeader.remove();
+                        document.body.style.background = originalBackground;
+                        
+                        // Efeito de confetti
+                        createConfetti();
+                        
+                        // Mostrar mensagem de sucesso
+                        successMessage.style.display = 'block';
+                        
+                        // Fechar o modal após o download
+                        setTimeout(() => {
+                            modal.classList.remove('active');
+                            loadingBar.style.width = '0';
+                            
+                            // Esconder mensagem de sucesso após 3 segundos
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 3000);
+                        }, 1000);
+                    });
+                }, 1500);
+            } else {
+                // PDF padrão
+                setTimeout(() => {
+                    html2pdf().set(opt).from(elemento).save().then(() => {
+                        // Efeito de confetti
+                        createConfetti();
+                        
+                        // Mostrar mensagem de sucesso
+                        successMessage.style.display = 'block';
+                        
+                        // Fechar o modal após o download
+                        setTimeout(() => {
+                            modal.classList.remove('active');
+                            loadingBar.style.width = '0';
+                            
+                            // Esconder mensagem de sucesso após 3 segundos
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 3000);
+                        }, 1000);
+                    });
+                }, 1000);
+            }
+        }
+        
+        // Funções para o certificado
+        function viewCertificate() {
+            const modal = document.getElementById('certificateModal');
+            modal.classList.add('active');
+        }
+        
+        function closeCertificateModal() {
+            const modal = document.getElementById('certificateModal');
+            modal.classList.remove('active');
+        }
+        
+        function downloadCertificate() {
+            // Criar um link de download para o certificado
+            const link = document.createElement('a');
+            link.href = 'Recursos_Humanos-Certificado_digital_2468186.pdf';
+            link.download = 'Certificado_Recursos_Humanos_Wesley_Teles.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Efeito de confetti
+            createConfetti();
+        }
+        
+        // Adiciona data atual para impressão
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = new Date();
+            const dataFormatada = data.toLocaleDateString('pt-BR');
+            document.getElementById('data-geracao').textContent = dataFormatada;
+            
+            // Fechar modais ao pressionar ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('downloadModal').classList.remove('active');
+                    document.getElementById('certificateModal').classList.remove('active');
+                }
+            });
         });
-        
-        animation.onfinish = () => {
-          confetti.remove();
-        };
-      }
-    }
-    
-    // Função para gerar PDF com efeitos visuais
-    function downloadPDF(type) {
-      const loadingBar = document.getElementById('loadingBar');
-      const modal = document.getElementById('downloadModal');
-      
-      // Iniciar animação da barra de progresso
-      loadingBar.style.width = '0';
-      setTimeout(() => {
-        loadingBar.style.width = '100%';
-      }, 10);
-      
-      // Configurações do PDF
-      const elemento = document.getElementById("curriculo");
-      const opt = {
-        margin: [5, 5, 5, 5],
-        filename: 'curriculo_wesley_teles.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      
-      // Configurações adicionais para o PDF criativo
-      if (type === 'creative') {
-        // Adicionar elementos visuais especiais antes da conversão
-        const originalBackground = document.body.style.background;
-        document.body.style.background = '#f0f8ff';
-        
-        // Adicionar um cabeçalho especial para o PDF
-        const pdfHeader = document.createElement('div');
-        pdfHeader.innerHTML = `
-          <div style="text-align: center; padding: 10px; background: linear-gradient(90deg, #0b74ef, #46a5ff); color: white; border-radius: 8px; margin-bottom: 20px;">
-            <h1 style="margin: 0; font-size: 24px;">Wesley de Sousa Teles</h1>
-            <p style="margin: 5px 0;">Desenvolvimento Profissional | Carreira</p>
-          </div>
-        `;
-        elemento.insertBefore(pdfHeader, elemento.firstChild);
-        
-        // Gerar PDF com estilos especiais
-        setTimeout(() => {
-          html2pdf().set(opt).from(elemento).save().then(() => {
-            // Remover elementos adicionados após a geração
-            pdfHeader.remove();
-            document.body.style.background = originalBackground;
-            
-            // Efeito de confetti
-            createConfetti();
-            
-            // Fechar o modal após o download
-            setTimeout(() => {
-              modal.classList.remove('active');
-              loadingBar.style.width = '0';
-            }, 1000);
-          });
-        }, 1500);
-      } else {
-        // PDF padrão
-        setTimeout(() => {
-          html2pdf().set(opt).from(elemento).save().then(() => {
-            // Efeito de confetti
-            createConfetti();
-            
-            // Fechar o modal após o download
-            setTimeout(() => {
-              modal.classList.remove('active');
-              loadingBar.style.width = '0';
-            }, 1000);
-          });
-        }, 1000);
-      }
-    }
-    
-    // Adiciona data atual para impressão
-    document.addEventListener('DOMContentLoaded', function() {
-      const data = new Date();
-      const dataFormatada = data.toLocaleDateString('pt-BR');
-      document.getElementById('data-geracao').textContent = dataFormatada;
-    });
-  </script>
+    </script>
 </body>
 </html>
