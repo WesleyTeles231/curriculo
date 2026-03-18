@@ -1,0 +1,34 @@
+# .htaccess — Apache (hospedagem tradicional / cPanel)
+# Redireciona todas as rotas para index.html sem mudar a URL
+
+Options -MultiViews
+RewriteEngine On
+
+# Não reescreve arquivos ou pastas existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Todas as rotas internas → index.html
+RewriteRule ^(sobre|blog|curriculo|youtube|loja|contato)(/.*)? /index.html [L,QSA]
+RewriteRule ^blog/.+ /index.html [L,QSA]
+
+# Headers de performance e SEO
+<IfModule mod_headers.c>
+  # Cache agressivo para assets estáticos
+  <FilesMatch "\.(css|js|woff2|woff|ttf|webp|png|jpg|jpeg|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # HTML: sem cache (sempre atualizado)
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  # Segurança básica
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Compressão gzip
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>

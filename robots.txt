@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Bloquear painel admin do Firebase (não há URL dedicada, mas por precaução)
+Disallow: /cdn-cgi/
+
+# Sitemap
+Sitemap: https://www.wesleytelesoficial.com.br/sitemap.xml

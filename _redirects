@@ -1,0 +1,11 @@
+# _redirects — Netlify / Cloudflare Pages
+# Redireciona todas as rotas para o index.html (SPA)
+# O seoRouter.js cuida dos meta tags e do scroll por rota
+
+/sobre        /index.html  200
+/blog         /index.html  200
+/blog/*       /index.html  200
+/curriculo    /index.html  200
+/youtube      /index.html  200
+/loja         /index.html  200
+/contato      /index.html  200
