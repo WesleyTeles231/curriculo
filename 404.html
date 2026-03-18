@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Wesley Teles</title>
+  <script>
+    // GitHub Pages SPA redirect
+    // Salva o path atual e redireciona para o index.html
+    var path = window.location.pathname;
+    var search = window.location.search;
+    // Redireciona para a raiz com o path como parâmetro
+    window.location.replace(
+      '/' + '?p=' + encodeURIComponent(path.slice(1) + search)
+    );
+  </script>
+</head>
+<body></body>
+</html>

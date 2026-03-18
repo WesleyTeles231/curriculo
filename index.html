@@ -1,0 +1,2697 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO: títulos e descrições são atualizados por rota via JS -->
+  <title id="page-title">Wesley Teles | Técnico em Hardware & Linux | Criador de Conteúdo Tech</title>
+  <meta name="description" id="meta-description" content="Wesley de Sousa Teles — Técnico em Hardware e Linux, Criador de Conteúdo Tech em Pará de Minas, MG. Blog, currículo, vídeos e contato." />
+  <meta name="author" content="Wesley de Sousa Teles" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" id="meta-canonical" href="https://www.wesleytelesoficial.com.br/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" id="og-type" content="website" />
+  <meta property="og:url" id="og-url" content="https://www.wesleytelesoficial.com.br/" />
+  <meta property="og:title" id="og-title" content="Wesley Teles | Técnico em Hardware & Linux" />
+  <meta property="og:description" id="og-description" content="Blog de tech, currículo, vídeos e infoprodutos de Wesley Teles." />
+  <meta property="og:image" content="https://i.imgur.com/ne7twT3_d.webp" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Wesley Teles Oficial" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="tw-title" content="Wesley Teles | Técnico em Hardware & Linux" />
+  <meta name="twitter:description" id="tw-description" content="Blog de tech, currículo, vídeos e infoprodutos de Wesley Teles." />
+  <meta name="twitter:image" content="https://i.imgur.com/ne7twT3_d.webp" />
+
+  <!-- JSON-LD: Person (fixo) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Wesley de Sousa Teles",
+    "url": "https://www.wesleytelesoficial.com.br",
+    "image": "https://i.imgur.com/ne7twT3_d.webp",
+    "jobTitle": "Técnico em Hardware e Linux",
+    "description": "Criador de Conteúdo Tech, especialista em Hardware PC e Linux",
+    "address": { "@type": "PostalAddress", "addressLocality": "Pará de Minas", "addressRegion": "MG", "addressCountry": "BR" },
+    "sameAs": ["https://www.youtube.com/@wesleytelesoficial", "https://www.linkedin.com/in/wesleytelesoficial", "https://www.instagram.com/wesleytelesoficial"]
+  }
+  </script>
+  <!-- JSON-LD: WebSite + SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.wesleytelesoficial.com.br",
+    "name": "Wesley Teles Oficial",
+    "description": "Blog de tech, currículo, vídeos e loja de infoprodutos de Wesley Teles",
+    "inLanguage": "pt-BR",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": "https://www.wesleytelesoficial.com.br/blog?q={search_term_string}" },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <!-- JSON-LD: dinâmico por rota/post -->
+  <script type="application/ld+json" id="ld-dynamic"></script>
+  <!-- JSON-LD: BreadcrumbList dinâmico -->
+  <script type="application/ld+json" id="ld-breadcrumb"></script>
+
+  <!-- Fontes e CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Stripe (para checkout) -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Firebase (módulos) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, getDoc, doc, deleteDoc, updateDoc, setDoc, orderBy, query, serverTimestamp, where, limit, startAfter }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAsMu8atiA8KTvPOIqMrS2Eo_NlLoSKkNg",
+      authDomain: "wesley-teles-site.firebaseapp.com",
+      projectId: "wesley-teles-site",
+      storageBucket: "wesley-teles-site.firebasestorage.app",
+      messagingSenderId: "485631775390",
+      appId: "1:485631775390:web:de7fa8a7298d2ffadea18f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Disponibiliza globalmente para funções não-module
+    window._fb = {
+      db, auth,
+      collection, addDoc, getDocs, getDoc, doc, deleteDoc, updateDoc, setDoc,
+      orderBy, query, serverTimestamp, signInWithEmailAndPassword, signOut,
+      onAuthStateChanged, where, limit, startAfter
+    };
+
+    // Inicialização após carregar a página
+    window.addEventListener('DOMContentLoaded', async () => {
+      // Verificar se os elementos críticos existem antes de prosseguir
+      if (!document.getElementById('admin-bar') || !document.getElementById('admin-login-btn') || !document.getElementById('admin-logged-email')) {
+        console.error('Elementos críticos da interface não encontrados. Verifique o HTML.');
+        return;
+      }
+
+      await window.loadSiteTexts();
+      await window.loadExperiences();
+      await window.loadPosts(true);
+      await window.loadYouTubePosts();
+      window.handleHashRoute();
+
+      // Listener de autenticação
+      onAuthStateChanged(auth, (user) => {
+        window._adminUser = user;
+
+        const adminBar = document.getElementById('admin-bar');
+        const loginBtn = document.getElementById('admin-login-btn');
+        const emailSpan = document.getElementById('admin-logged-email');
+
+        if (adminBar && loginBtn && emailSpan) {
+          if (user) {
+            console.log("✅ Admin logado:", user.email);
+            adminBar.style.display = 'flex';
+            loginBtn.style.display = 'none';
+            emailSpan.textContent = user.email;
+            window.loadPosts(true);
+            window.loadYouTubePosts();
+            window.loadExperiences();
+          } else {
+            console.log("❌ Ninguém logado");
+            adminBar.style.display = 'none';
+            loginBtn.style.display = 'flex';
+            emailSpan.textContent = '';
+          }
+        }
+      });
+    });
+
+    window.addEventListener('hashchange', () => window.handleHashRoute());
+  </script>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    const EMAILJS_PUBLIC_KEY       = 'xBZMqBPhFy-eHAxf2';
+    const EMAILJS_SERVICE_ID       = 'service_qlvlgxm';
+    const EMAILJS_TEMPLATE_CONTACT = 'template_6j4o4o9';
+    const EMAILJS_TEMPLATE_AVISO   = 'template_x926rhq';
+    (function(){ emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); })();
+  </script>
+
+  <!-- Configuração do Tailwind (tema) -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --card: #161616;
+      --border: #222;
+      --text: #f0f0f0;
+      --muted: #888;
+      --primary: #0b74ef;
+      --neon: #22D3EE;
+    }
+    .light-mode {
+      --bg: #f5f7fa;
+      --surface: #fff;
+      --card: #f0f2f5;
+      --border: #dde1e7;
+      --text: #111;
+      --muted: #555;
+    }
+
+    * { box-sizing: border-box; }
+    html { font-family: 'DM Sans', sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(11,116,239,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11,116,239,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #0b74ef, #22D3EE);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Navbar */
+    #navbar {
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .light-mode #navbar { background: rgba(255,255,255,0.92); }
+    .nav-link {
+      position: relative;
+      color: var(--muted);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #0b74ef, #22D3EE);
+      transition: width 0.3s;
+    }
+    .nav-link:hover { color: var(--neon); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Hero photo */
+    .hero-photo-wrap {
+      position: relative;
+      width: 156px;
+      height: 156px;
+      margin: 0 auto;
+    }
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0b74ef, #22D3EE);
+      z-index: 0;
+      animation: spin 8s linear infinite;
+    }
+    .hero-photo-wrap img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(11,116,239,0.4);
+      box-shadow: 0 20px 40px rgba(11,116,239,0.1);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, #0b74ef, #0d5fc4);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 13px 26px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 8px 30px rgba(11,116,239,0.5);
+      transform: translateY(-2px);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      transform: none !important;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--neon);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 12px 26px;
+      border: 2px solid rgba(34,211,238,0.4);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .btn-secondary:hover {
+      background: rgba(34,211,238,0.08);
+      border-color: var(--neon);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      border-radius: 9px;
+      padding: 7px 13px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      border-radius: 9px;
+      padding: 7px 13px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    /* Form inputs */
+    .form-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 15px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11,116,239,0.15);
+    }
+    .form-input::placeholder { color: var(--muted); }
+    textarea.form-input { resize: vertical; }
+
+    /* Timeline */
+    .timeline-line {
+      position: absolute;
+      left: 16px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #0b74ef, #22D3EE, transparent);
+    }
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0b74ef, #22D3EE);
+      box-shadow: 0 0 10px rgba(34,211,238,0.5);
+      flex-shrink: 0;
+    }
+
+    /* WhatsApp button (draggable) */
+    #whatsapp-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #1da851);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.45rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: all 0.3s;
+      text-decoration: none;
+      cursor: grab;
+      user-select: none;
+    }
+    #whatsapp-btn:active { cursor: grabbing; }
+    #whatsapp-btn:hover { transform: scale(1.12); }
+    #whatsapp-btn::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(37,211,102,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* Modais */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      padding: 16px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 540px;
+      width: 100%;
+      animation: slideUp 0.3s ease;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+    .modal-wide { max-width: 800px; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Post view */
+    #modal-post-view .pv-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+    .pv-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 10px;
+    }
+    .pv-scroll {
+      overflow-y: auto;
+      flex: 1;
+      padding: 36px 36px 48px;
+    }
+    @media (max-width: 600px) { .pv-scroll { padding: 22px 18px 36px; } }
+    .post-content p {
+      margin-bottom: 1rem;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+    .post-content h2, .post-content h3 {
+      font-family: 'Syne', sans-serif;
+      color: var(--text);
+      margin: 1.4rem 0 0.5rem;
+      font-weight: 700;
+    }
+    .post-content img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .post-content ul, .post-content ol {
+      margin: 1rem 0 1rem 1.5rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .post-content a { color: var(--neon); text-decoration: underline; }
+    .post-content strong { color: var(--text); }
+
+    /* Comentários */
+    .comment-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 30px;
+    }
+    .comment {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .comment:last-child { border-bottom: none; }
+    .comment-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .comment-date {
+      color: var(--muted);
+      font-size: 0.7rem;
+      margin-left: 8px;
+    }
+    .comment-text {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      padding: 13px 18px;
+      border-radius: 12px;
+      z-index: 99999;
+      transform: translateX(220%);
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.87rem;
+      max-width: 310px;
+    }
+    #toast.show { transform: translateX(0); }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      opacity: 0;
+      animation: confettiFall 3s ease-in forwards;
+      border-radius: 2px;
+      z-index: 99998;
+      pointer-events: none;
+    }
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translateY(0) rotate(0); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timeline-item {
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* YouTube embed */
+    .yt-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .yt-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .skill-badge {
+      background: rgba(11,116,239,0.1);
+      border: 1px solid rgba(11,116,239,0.2);
+      color: var(--neon);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+
+    section { padding: 84px 0; }
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 9px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    #mobile-menu {
+      display: none;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    #mobile-menu.open { display: block; }
+
+    /* Admin bar */
+    #admin-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9990;
+      background: linear-gradient(90deg, #0b74ef, #0d5fc4);
+      color: #fff;
+      padding: 9px 20px;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      box-shadow: 0 -4px 20px rgba(11,116,239,0.4);
+    }
+
+    /* Blog cards */
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(11,116,239,0.4);
+      box-shadow: 0 20px 40px rgba(11,116,239,0.1);
+    }
+    .post-tag {
+      background: rgba(11,116,239,0.12);
+      border: 1px solid rgba(11,116,239,0.25);
+      color: var(--neon);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-family: 'Syne', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .post-tag.video {
+      background: rgba(255,0,0,0.1);
+      border-color: rgba(255,0,0,0.25);
+      color: #ff5555;
+    }
+
+    /* Paginação */
+    #load-more-container { text-align: center; margin-top: 30px; }
+    #load-more-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 30px;
+      border-radius: 30px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #load-more-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    #load-more-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Editor de experiências */
+    .exp-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .exp-item .exp-info { flex: 1; }
+    .exp-item .exp-actions { display: flex; gap: 5px; }
+    .exp-edit-btn, .exp-delete-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .exp-edit-btn:hover { color: var(--primary); }
+    .exp-delete-btn:hover { color: #ef4444; }
+
+    /* Editor de posts */
+    #post-body-editor {
+      min-height: 150px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 15px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      outline: none;
+    }
+    #post-body-editor:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11,116,239,0.15);
+    }
+    #post-body-editor[contenteditable]:empty::before {
+      content: 'Escreva o conteúdo aqui...';
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .editor-toolbar button {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      transition: all 0.2s;
+    }
+    .editor-toolbar button:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Editor de textos do site */
+    #ed-sobre-editor {
+      min-height: 200px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 15px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      outline: none;
+      margin-bottom: 15px;
+    }
+    #ed-sobre-editor:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11,116,239,0.15);
+    }
+    #ed-sobre-editor[contenteditable]:empty::before {
+      content: 'Escreva seu texto de apresentação...';
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .type-btn {
+      padding: 8px 16px;
+      border-radius: 9px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .type-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .field-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    /* Checkout */
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    .price-tag {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--neon);
+      margin: 15px 0;
+    }
+    .stripe-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(99,91,255,0.1);
+      border: 1px solid rgba(99,91,255,0.3);
+      color: #635bff;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    /* Light mode */
+    .light-mode .card, .light-mode .post-card { background: #fff; border-color: #e5e7eb; }
+    .light-mode .form-input, .light-mode #post-body-editor, .light-mode #ed-sobre-editor {
+      background: #f9fafb;
+      border-color: #e5e7eb;
+      color: #111;
+    }
+    .light-mode .modal-box { background: #f5f7fa; }
+    .light-mode #modal-post-view .pv-box { background: #f5f7fa; }
+    .light-mode .pv-header { background: #fff; }
+    .light-mode .social-icon { background: #f0f2f5; border-color: #dde1e7; }
+  </style>
+</head>
+<body id="body">
+
+<!-- ADMIN BAR (aparece apenas quando logado) -->
+<div id="admin-bar">
+  <span><i class="fa-solid fa-shield-halved" style="margin-right:7px;"></i>Admin: <span id="admin-logged-email"></span></span>
+  <div style="display:flex;gap:7px;flex-wrap:wrap;">
+    <button onclick="openNewPostModal()" class="btn-primary" style="padding:6px 13px;font-size:.78rem;"><i class="fa-solid fa-plus"></i> Novo Post</button>
+    <button onclick="openModal('modal-panel-editor')" style="padding:6px 13px;font-size:.78rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:'Syne',sans-serif;font-weight:600;"><i class="fa-solid fa-sliders"></i> Editar Textos</button>
+    <button onclick="openModal('modal-experiencias')" style="padding:6px 13px;font-size:.78rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:'Syne',sans-serif;font-weight:600;"><i class="fa-solid fa-briefcase"></i> Experiências</button>
+    <button onclick="doLogout()" class="btn-danger" style="padding:6px 12px;"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+  </div>
+</div>
+
+<!-- BREADCRUMB (SEO + UX — aparece em sub-seções) -->
+<nav id="seo-breadcrumb" aria-label="Você está em" style="display:none;position:fixed;top:60px;left:0;right:0;z-index:49;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:7px 20px;font-size:12px;color:var(--muted);font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.04em;">
+  <!-- preenchido pelo seoRouter -->
+</nav>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-6xl mx-auto px-5">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:60px;">
+      <a href="/" data-route="/" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;text-decoration:none;">
+        <span style="color:var(--text)">Wesley</span><span class="gradient-text">Teles</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="/"          class="nav-link" data-route="/">Início</a>
+        <a href="/sobre"     class="nav-link" data-route="/sobre">Sobre</a>
+        <a href="/blog"      class="nav-link" data-route="/blog">Blog</a>
+        <a href="/curriculo" class="nav-link" data-route="/curriculo">Currículo</a>
+        <a href="/youtube"   class="nav-link" data-route="/youtube">YouTube</a>
+        <a href="/loja"      class="nav-link" data-route="/loja">Loja</a>
+        <a href="/contato"   class="nav-link" data-route="/contato">Contato</a>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center;">
+        <button onclick="openLoginModal()" id="admin-login-btn" title="Admin"
+          style="background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:10px;width:37px;height:37px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.82rem;">
+          <i class="fa-solid fa-lock"></i>
+        </button>
+        <button onclick="toggleTheme()" title="Tema"
+          style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:10px;width:37px;height:37px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.82rem;">
+          <i class="fa-solid fa-sun" id="theme-icon"></i>
+        </button>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('open')" class="md:hidden"
+          style="background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:10px;width:37px;height:37px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i class="fa-solid fa-bars" style="font-size:.82rem;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu">
+    <div class="px-5 py-4 flex flex-col gap-4">
+      <a href="/"          class="nav-link" data-route="/"          onclick="closeMobile()">Início</a>
+      <a href="/sobre"     class="nav-link" data-route="/sobre"     onclick="closeMobile()">Sobre</a>
+      <a href="/blog"      class="nav-link" data-route="/blog"      onclick="closeMobile()">Blog</a>
+      <a href="/curriculo" class="nav-link" data-route="/curriculo" onclick="closeMobile()">Currículo</a>
+      <a href="/youtube"   class="nav-link" data-route="/youtube"   onclick="closeMobile()">YouTube</a>
+      <a href="/loja"      class="nav-link" data-route="/loja"      onclick="closeMobile()">Loja</a>
+      <a href="/contato"   class="nav-link" data-route="/contato"   onclick="closeMobile()">Contato</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio" class="grid-bg relative overflow-hidden" style="padding-top:106px;padding-bottom:86px;">
+  <div style="position:absolute;top:8%;left:4%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(11,116,239,.13),transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:8%;right:4%;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.08),transparent 70%);pointer-events:none;"></div>
+  <div class="max-w-4xl mx-auto px-5 text-center">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(11,116,239,.1);border:1px solid rgba(11,116,239,.25);border-radius:100px;padding:5px 15px;font-size:.7rem;font-weight:700;color:var(--neon);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;">
+      <i class="fa-solid fa-circle" style="font-size:5px;"></i><span id="st-badge">Disponível para oportunidades</span>
+    </div>
+    <div class="hero-photo-wrap mb-6">
+      <img src="https://i.imgur.com/ne7twT3_d.webp" alt="Wesley de Sousa Teles" />
+    </div>
+    <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;color:var(--text);margin-bottom:12px;">
+      <span id="st-nome">Wesley de Sousa</span><br/><span class="gradient-text" id="st-sobrenome">Teles</span>
+    </h1>
+    <p style="font-size:.97rem;color:var(--muted);max-width:470px;margin:0 auto 7px;line-height:1.6;" id="st-cargo">Auxiliar de Produção &amp; Técnico em Hardware e Linux</p>
+    <p style="font-size:.85rem;color:var(--primary);font-family:'Syne',sans-serif;font-weight:600;margin-bottom:5px;" id="st-subcargo">Criador de Conteúdo Tech</p>
+    <p style="font-size:.79rem;color:var(--muted);margin-bottom:32px;"><i class="fa-solid fa-location-dot" style="color:var(--primary);margin-right:5px;"></i><span id="st-local">Pará de Minas, MG</span></p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="/curriculo" data-route="/curriculo" class="btn-primary"><i class="fa-solid fa-file-lines"></i> Ver Currículo</a>
+      <a href="https://www.youtube.com/@wesleytelesoficial" target="_blank" class="btn-secondary"><i class="fa-brands fa-youtube"></i> Inscreva-se no YouTube</a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-10 mt-11" style="border-top:1px solid var(--border);padding-top:30px;">
+      <div class="text-center"><div style="font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:var(--neon);" id="st-stat1">6+</div><div style="font-size:.75rem;color:var(--muted);margin-top:1px;" id="st-stat1-label">Anos de experiência</div></div>
+      <div class="text-center"><div style="font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:var(--neon);" id="st-stat2">4</div><div style="font-size:.75rem;color:var(--muted);margin-top:1px;" id="st-stat2-label">Empresas</div></div>
+      <div class="text-center"><div style="font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:var(--neon);" id="st-stat3">∞</div><div style="font-size:.75rem;color:var(--muted);margin-top:1px;" id="st-stat3-label">Paixão por Tech</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal text-center mb-12"><div class="section-label" id="st-sobre-label">Quem sou eu</div><h2 class="section-title" id="st-sobre-title">Sobre Mim</h2></div>
+    <div class="grid md:grid-cols-2 gap-11 items-center">
+      <div class="reveal">
+        <div id="st-sobre" style="font-size:1.02rem;line-height:1.9;color:var(--muted);margin-bottom:22px;">
+          Profissional com sólida experiência em processos produtivos e industriais, com histórico comprovado de pontualidade e trabalho em equipe na <strong style="color:var(--text);">Ferguminas</strong> e <strong style="color:var(--text);">Léo Computadores</strong>. Diferencio-me pelo forte interesse e conhecimento autodidata em Tecnologia (Hardware, Linux e Lógica de Programação), o que facilita a adaptação a sistemas modernos e operação de painéis digitais. Gosto também de trabalhar com atendimento ao público, de conhecer novas pessoas e receber dessas pessoas novos aprendizados e também transmitir conhecimentos.
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-badge"><i class="fa-brands fa-linux" style="margin-right:4px;"></i>Linux</span>
+          <span class="skill-badge"><i class="fa-solid fa-microchip" style="margin-right:4px;"></i>Hardware</span>
+          <span class="skill-badge"><i class="fa-solid fa-code" style="margin-right:4px;"></i>Lógica de Programação</span>
+          <span class="skill-badge"><i class="fa-solid fa-industry" style="margin-right:4px;"></i>Produção Industrial</span>
+          <span class="skill-badge"><i class="fa-brands fa-youtube" style="margin-right:4px;"></i>Conteúdo Tech</span>
+          <span class="skill-badge"><i class="fa-solid fa-users" style="margin-right:4px;"></i>Trabalho em Equipe</span>
+        </div>
+      </div>
+      <div class="reveal grid grid-cols-2 gap-4">
+        <div class="card p-5 text-center"><div style="font-size:1.7rem;margin-bottom:6px;color:var(--primary);"><i class="fa-solid fa-screwdriver-wrench"></i></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.87rem;color:var(--text);margin-bottom:2px;">Manutenção</div><div style="font-size:.77rem;color:var(--muted);">Hardware PC</div></div>
+        <div class="card p-5 text-center"><div style="font-size:1.7rem;margin-bottom:6px;color:var(--neon);"><i class="fa-brands fa-linux"></i></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.87rem;color:var(--text);margin-bottom:2px;">Linux</div><div style="font-size:.77rem;color:var(--muted);">Administração</div></div>
+        <div class="card p-5 text-center"><div style="font-size:1.7rem;margin-bottom:6px;color:var(--primary);"><i class="fa-solid fa-video"></i></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.87rem;color:var(--text);margin-bottom:2px;">YouTube</div><div style="font-size:.77rem;color:var(--muted);">Criador Tech</div></div>
+        <div class="card p-5 text-center"><div style="font-size:1.7rem;margin-bottom:6px;color:var(--neon);"><i class="fa-solid fa-industry"></i></div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.87rem;color:var(--text);margin-bottom:2px;">Produção</div><div style="font-size:.77rem;color:var(--muted);">Industrial</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG (COM PAGINAÇÃO) -->
+<section id="blog">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal text-center mb-12">
+      <div class="section-label" id="st-blog-label">Artigos, Tutoriais & Vídeos</div>
+      <h2 class="section-title" id="st-blog-title">Blog Tech</h2>
+      <p style="color:var(--muted);margin-top:10px;font-size:.9rem;" id="st-blog-sub">Dicas, tutoriais, reviews e vídeos do canal</p>
+    </div>
+    <div id="blog-grid" class="grid md:grid-cols-3 gap-6 mb-8">
+      <div id="blog-loading" style="grid-column:1/-1;text-align:center;padding:44px;color:var(--muted);">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size:1.3rem;margin-bottom:9px;display:block;color:var(--primary);"></i>Carregando posts...
+      </div>
+    </div>
+    <div id="blog-empty" style="display:none;text-align:center;padding:44px;color:var(--muted);">
+      <i class="fa-solid fa-pen-nib" style="font-size:1.8rem;margin-bottom:9px;display:block;color:var(--border);"></i>Nenhum post ainda. Em breve!
+    </div>
+    <div id="load-more-container">
+      <button id="load-more-btn" onclick="loadMorePosts()" style="display:none;">Carregar mais posts</button>
+    </div>
+  </div>
+</section>
+
+<!-- CURRÍCULO (DINÂMICO) -->
+<section id="curriculo" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="reveal text-center mb-12"><div class="section-label">Trajetória Profissional</div><h2 class="section-title">Currículo</h2></div>
+    <div id="timeline-container" style="position:relative;padding-left:44px;margin-bottom:50px;">
+      <div class="timeline-line"></div>
+      <div id="exp-loading" style="text-align:center;padding:20px;color:var(--muted);">
+        <i class="fa-solid fa-spinner fa-spin"></i> Carregando experiências...
+      </div>
+    </div>
+    <div class="reveal grid md:grid-cols-2 gap-5">
+      <div class="card p-5"><div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="width:39px;height:39px;border-radius:10px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.2);display:flex;align-items:center;justify-content:center;color:var(--neon);font-size:1rem;flex-shrink:0;"><i class="fa-solid fa-certificate"></i></div><div><div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);font-size:.89rem;">Curso de Recursos Humanos</div><div style="color:var(--muted);font-size:.77rem;">IFRS • 2025 • 20h</div></div></div><span style="background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);color:var(--neon);font-size:.67rem;font-weight:700;padding:2px 9px;border-radius:100px;font-family:'Syne',sans-serif;">CERTIFICAÇÃO</span></div>
+      <div class="card p-5"><div style="display:flex;align-items:center;gap:11px;margin-bottom:11px;"><div style="width:39px;height:39px;border-radius:10px;background:rgba(11,116,239,.1);border:1px solid rgba(11,116,239,.2);display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:1rem;flex-shrink:0;"><i class="fa-solid fa-graduation-cap"></i></div><div><div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);font-size:.89rem;">Ensino Médio Completo</div><div style="color:var(--muted);font-size:.77rem;">Concluído em 2018</div></div></div><span style="background:rgba(11,116,239,.08);border:1px solid rgba(11,116,239,.2);color:var(--primary);font-size:.67rem;font-weight:700;padding:2px 9px;border-radius:100px;font-family:'Syne',sans-serif;">FORMAÇÃO</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUTUBE - Dinâmico com posts do tipo vídeo -->
+<section id="youtube">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal text-center mb-12">
+      <div class="section-label" id="st-yt-label">Canal no YouTube</div>
+      <h2 class="section-title" id="st-yt-title">Meus vídeos no YouTube</h2>
+      <p style="color:var(--muted);margin-top:10px;font-size:.9rem;" id="st-yt-sub">Posts em formato de vídeo publicados no blog</p>
+    </div>
+    <div id="youtube-grid" class="grid md:grid-cols-2 gap-6 mb-10">
+      <div id="youtube-loading" style="grid-column:1/-1;text-align:center;padding:44px;color:var(--muted);">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size:1.3rem;margin-bottom:9px;display:block;color:var(--primary);"></i>Carregando vídeos...
+      </div>
+    </div>
+    <div id="youtube-empty" style="display:none;text-align:center;padding:44px;color:var(--muted);">
+      <i class="fa-brands fa-youtube" style="font-size:1.8rem;margin-bottom:9px;display:block;color:var(--border);"></i>Nenhum vídeo ainda. Em breve!
+    </div>
+    <div class="reveal text-center"><a href="https://www.youtube.com/@wesleytelesoficial" target="_blank" class="btn-primary" style="font-size:.95rem;padding:14px 32px;"><i class="fa-brands fa-youtube"></i> Inscreva-se no canal @wesleytelesoficial</a></div>
+  </div>
+</section>
+
+<!-- LOJA COM CHECKOUT -->
+<section id="loja" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal text-center mb-12">
+      <div class="section-label" id="st-loja-label">Infoprodutos</div>
+      <h2 class="section-title" id="st-loja-title">Minha Loja de Infoprodutos</h2>
+      <div class="stripe-badge" style="margin:10px auto;"><i class="fa-brands fa-stripe-s"></i> Pagamentos processados por Stripe</div>
+    </div>
+    <div id="products-grid" class="reveal grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div id="products-loading" style="grid-column:1/-1;text-align:center;padding:44px;color:var(--muted);">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size:1.3rem;margin-bottom:9px;display:block;color:var(--primary);"></i>Carregando produtos...
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="reveal text-center mb-12">
+      <div class="section-label" id="st-contato-label">Entre em Contato</div>
+      <h2 class="section-title" id="st-contato-title">Vamos conversar?</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-11">
+      <div class="reveal">
+        <a href="/cdn-cgi/l/email-protection#82f5f5f6e7eee7f1bab2c2e5efe3ebeeace1edef" style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--neon)'" onmouseout="this.style.color='var(--text)'"><div style="width:38px;height:38px;border-radius:10px;background:rgba(11,116,239,.1);border:1px solid rgba(11,116,239,.2);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;"><i class="fa-solid fa-envelope"></i></div><div><div style="font-size:.7rem;color:var(--muted);margin-bottom:1px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">E-mail</div><div style="font-size:.89rem;"><span class="__cf_email__" data-cfemail="04737370616861773c34446369656d682a676b69">[email&#160;protected]</span></div></div></a>
+        <a href="tel:+5537984117230" style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);color:var(--text);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--neon)'" onmouseout="this.style.color='var(--text)'"><div style="width:38px;height:38px;border-radius:10px;background:rgba(11,116,239,.1);border:1px solid rgba(11,116,239,.2);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;"><i class="fa-solid fa-phone"></i></div><div><div style="font-size:.7rem;color:var(--muted);margin-bottom:1px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Telefone</div><div style="font-size:.89rem;">(37) 98411-7230</div></div></a>
+        <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);"><div style="width:38px;height:38px;border-radius:10px;background:rgba(11,116,239,.1);border:1px solid rgba(11,116,239,.2);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;"><i class="fa-solid fa-location-dot"></i></div><div><div style="font-size:.7rem;color:var(--muted);margin-bottom:1px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Localização</div><div style="font-size:.89rem;color:var(--text);">Pará de Minas, MG</div></div></div>
+        <div style="margin-top:24px;"><p style="font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Redes Sociais</p><div style="display:flex;gap:9px;flex-wrap:wrap;"><a href="https://www.youtube.com/@wesleytelesoficial" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a><a href="https://www.linkedin.com/in/wesleytelesoficial" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a><a href="https://www.instagram.com/wesleytelesoficial" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a><a href="https://wa.me/5537984117230" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a></div></div>
+      </div>
+      <div class="reveal">
+        <form id="contact-form" onsubmit="sendContact(event)" style="display:flex;flex-direction:column;gap:12px;">
+          <div><label class="field-label">Nome</label><input type="text" name="from_name" class="form-input" placeholder="Seu nome completo" required /></div>
+          <div><label class="field-label">E-mail</label><input type="email" name="from_email" class="form-input" placeholder="seu@email.com" required /></div>
+          <div><label class="field-label">Assunto</label><input type="text" name="subject" class="form-input" placeholder="Como posso te ajudar?" required /></div>
+          <div><label class="field-label">Mensagem</label><textarea name="message" class="form-input" rows="4" placeholder="Escreva sua mensagem..." required></textarea></div>
+          <button type="submit" id="contact-btn" class="btn-primary" style="width:100%;justify-content:center;font-size:.93rem;padding:13px;"><i class="fa-solid fa-paper-plane"></i> Enviar mensagem</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0a0a0a;border-top:1px solid var(--border);padding:30px 0;text-align:center;margin-bottom:54px;">
+  <div class="max-w-6xl mx-auto px-5">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;margin-bottom:8px;"><span style="color:var(--text)">Wesley</span><span class="gradient-text">Teles</span></div>
+    <p style="color:var(--muted);font-size:.78rem;" id="st-footer">© 2025 Wesley de Sousa Teles · Pará de Minas, MG</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5537984117230" id="whatsapp-btn" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+<div id="toast"><i class="fa-solid fa-check-circle"></i><span id="toast-msg"></span></div>
+
+<!-- ==================== MODAIS ==================== -->
+
+<!-- LOGIN -->
+<div id="modal-login" class="modal-bg" onclick="closeModalOutside(event,'modal-login')">
+  <div class="modal-box" style="max-width:380px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);"><i class="fa-solid fa-lock" style="color:var(--primary);margin-right:7px;"></i>Acesso Admin</div>
+      <button onclick="closeModal('modal-login')" style="background:var(--border);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <form onsubmit="doLogin(event)" style="display:flex;flex-direction:column;gap:11px;">
+      <input type="email" id="login-email" class="form-input" placeholder="E-mail" required />
+      <input type="password" id="login-pass" class="form-input" placeholder="Senha" required />
+      <div id="login-error" style="color:#ef4444;font-size:.8rem;display:none;padding:7px 11px;background:rgba(239,68,68,.1);border-radius:8px;border:1px solid rgba(239,68,68,.2);"></div>
+      <button type="submit" id="login-btn" class="btn-primary" style="width:100%;justify-content:center;"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- POST VIEW (com comentários) -->
+<div id="modal-post-view" class="modal-bg" onclick="closePostViewOutside(event)">
+  <div class="pv-box">
+    <div class="pv-header">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span id="pv-tag" class="post-tag"></span>
+        <span id="pv-date" style="color:var(--muted);font-size:.78rem;"></span>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center;flex-shrink:0;">
+        <button onclick="copyPostUrl()" title="Copiar link"
+          style="background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:9px;padding:5px 11px;display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.77rem;font-family:'Syne',sans-serif;font-weight:600;transition:all .2s;"
+          onmouseover="this.style.color='var(--neon)';this.style.borderColor='rgba(34,211,238,.5)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">
+          <i class="fa-solid fa-link"></i> Compartilhar
+        </button>
+        <button id="pv-edit-btn" style="display:none;background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:9px;padding:5px 11px;align-items:center;gap:5px;cursor:pointer;font-size:.77rem;font-family:'Syne',sans-serif;font-weight:600;transition:all .2s;"
+          onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--muted)'" onclick="editCurrentPost()">
+          <i class="fa-solid fa-pen"></i> Editar
+        </button>
+        <button id="pv-del-btn" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#ef4444;border-radius:9px;padding:5px 11px;align-items:center;gap:5px;cursor:pointer;font-size:.77rem;font-family:'Syne',sans-serif;font-weight:600;" onclick="deleteCurrentPost()">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button onclick="closePostView()" style="background:var(--border);border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:.9rem;">✕</button>
+      </div>
+    </div>
+    <div class="pv-scroll" id="pv-scroll">
+      <div style="max-width:700px;margin:0 auto;">
+        <h1 id="pv-title" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.5rem,3.5vw,2.2rem);color:var(--text);line-height:1.2;margin-bottom:22px;"></h1>
+        <img id="pv-cover" style="width:100%;border-radius:14px;margin-bottom:24px;display:none;object-fit:cover;max-height:340px;" />
+        <div id="pv-yt" style="display:none;margin-bottom:24px;"></div>
+        <div id="pv-body" class="post-content"></div>
+
+        <!-- SEÇÃO DE COMENTÁRIOS -->
+        <div class="comment-box" id="comments-section">
+          <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);margin-bottom:15px;">Comentários</h3>
+          <div id="comments-list"></div>
+          <form id="comment-form" onsubmit="addComment(event)" style="margin-top:20px;">
+            <input type="text" id="comment-name" class="form-input" placeholder="Seu nome" required style="margin-bottom:8px;">
+            <textarea id="comment-text" class="form-input" placeholder="Seu comentário" rows="2" required style="margin-bottom:8px;"></textarea>
+            <button type="submit" class="btn-primary" style="padding:8px 16px;"><i class="fa-regular fa-comment"></i> Enviar comentário</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOVO / EDITAR POST (com botão de importar) -->
+<div id="modal-post-edit" class="modal-bg" onclick="closeModalOutside(event,'modal-post-edit')">
+  <div class="modal-box" style="max-width:620px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);"><i class="fa-solid fa-pen-to-square" style="color:var(--primary);margin-right:7px;"></i><span id="post-modal-title">Novo Post</span></div>
+      <button onclick="closeModal('modal-post-edit')" style="background:var(--border);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:14px;padding:4px;background:var(--surface);border-radius:11px;border:1px solid var(--border);">
+      <button type="button" onclick="setPostType('article')" id="type-article" class="type-btn active" style="flex:1;"><i class="fa-solid fa-pen-nib" style="margin-right:5px;"></i>Artigo</button>
+      <button type="button" onclick="setPostType('video')" id="type-video" class="type-btn" style="flex:1;"><i class="fa-brands fa-youtube" style="margin-right:5px;color:#ff4444;"></i>Vídeo YouTube</button>
+    </div>
+    <form onsubmit="savePost(event)" style="display:flex;flex-direction:column;gap:11px;">
+      <input type="hidden" id="post-id-edit" /><input type="hidden" id="post-type" value="article" />
+      <div><label class="field-label">Título *</label><input type="text" id="post-title" class="form-input" placeholder="Título do post" required /></div>
+      <div><label class="field-label">Tag / Categoria</label><input type="text" id="post-tag" class="form-input" placeholder="Ex: Linux, Hardware, Tutorial" /></div>
+      <div id="yt-field" style="display:none;"><label class="field-label">ID ou URL do Vídeo *</label><input type="text" id="post-yt-url" class="form-input" placeholder="Ex: Ha-dZMCILk0 ou https://youtube.com/watch?v=..." /><p style="color:var(--muted);font-size:.74rem;margin-top:3px;">Cole o link completo ou só o ID</p></div>
+      <div id="img-field"><label class="field-label">Imagem de capa (URL)</label><input type="url" id="post-image" class="form-input" placeholder="https://..." /></div>
+      <div id="body-field">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+          <label class="field-label">Conteúdo</label>
+          <button type="button" onclick="importFromUrl()" class="btn-secondary" style="padding:4px 10px;font-size:.7rem;"><i class="fa-solid fa-cloud-arrow-up"></i> Importar de URL</button>
+        </div>
+        <div class="editor-toolbar" style="display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap;">
+          <button type="button" onclick="fmt('bold')"><b>B</b></button>
+          <button type="button" onclick="fmt('italic')"><i>I</i></button>
+          <button type="button" onclick="fmt('underline')"><u>U</u></button>
+          <button type="button" onclick="fmtBlock('h2')">H2</button>
+          <button type="button" onclick="fmtBlock('h3')">H3</button>
+          <button type="button" onclick="fmt('insertUnorderedList')">• Lista</button>
+          <button type="button" onclick="insertLink()">🔗 Link</button>
+        </div>
+        <div id="post-body-editor" contenteditable="true"></div>
+      </div>
+      <div id="desc-field" style="display:none;"><label class="field-label">Descrição</label><textarea id="post-desc" class="form-input" rows="3" placeholder="Breve descrição do vídeo..."></textarea></div>
+      <button type="submit" id="save-post-btn" class="btn-primary" style="width:100%;justify-content:center;margin-top:3px;"><i class="fa-solid fa-cloud-arrow-up"></i> Publicar</button>
+    </form>
+  </div>
+</div>
+
+<!-- PAINEL EDITOR DE TEXTOS DO SITE -->
+<div id="modal-panel-editor" class="modal-bg" onclick="closeModalOutside(event,'modal-panel-editor')">
+  <div class="modal-box modal-wide" style="max-width:900px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);"><i class="fa-solid fa-sliders" style="color:var(--primary);margin-right:8px;"></i>Editar Textos do Site</div>
+      <button onclick="closeModal('modal-panel-editor')" style="background:var(--border);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+
+    <!-- Seção Hero -->
+    <p style="font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);">✦ Hero</p>
+    <div class="grid md:grid-cols-2 gap-3" style="margin-bottom:16px;">
+      <div><label class="field-label">Badge de status</label><input class="form-input" id="ed-badge" placeholder="Disponível para oportunidades" /></div>
+      <div><label class="field-label">Nome</label><input class="form-input" id="ed-nome" placeholder="Wesley de Sousa" /></div>
+      <div><label class="field-label">Sobrenome (destaque)</label><input class="form-input" id="ed-sobrenome" placeholder="Teles" /></div>
+      <div><label class="field-label">Cargo principal</label><input class="form-input" id="ed-cargo" placeholder="Auxiliar de Produção..." /></div>
+      <div><label class="field-label">Subcargo</label><input class="form-input" id="ed-subcargo" placeholder="Criador de Conteúdo Tech" /></div>
+      <div><label class="field-label">Cidade / Estado</label><input class="form-input" id="ed-local" placeholder="Pará de Minas, MG" /></div>
+    </div>
+    <div class="grid grid-cols-3 gap-3" style="margin-bottom:20px;">
+      <div><label class="field-label">Stat 1 — número</label><input class="form-input" id="ed-stat1" placeholder="6+" /></div>
+      <div><label class="field-label">Stat 2 — número</label><input class="form-input" id="ed-stat2" placeholder="4" /></div>
+      <div><label class="field-label">Stat 3 — número</label><input class="form-input" id="ed-stat3" placeholder="∞" /></div>
+      <div><label class="field-label">Stat 1 — label</label><input class="form-input" id="ed-stat1l" placeholder="Anos de experiência" /></div>
+      <div><label class="field-label">Stat 2 — label</label><input class="form-input" id="ed-stat2l" placeholder="Empresas" /></div>
+      <div><label class="field-label">Stat 3 — label</label><input class="form-input" id="ed-stat3l" placeholder="Paixão por Tech" /></div>
+    </div>
+
+    <!-- Seção Sobre com editor formatado -->
+    <p style="font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);">✦ Sobre Mim (com formatação)</p>
+    <div style="margin-bottom:22px;">
+      <div class="editor-toolbar" style="display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap;">
+        <button type="button" onclick="fmtSobre('bold')"><b>B</b></button>
+        <button type="button" onclick="fmtSobre('italic')"><i>I</i></button>
+        <button type="button" onclick="fmtSobre('underline')"><u>U</u></button>
+        <button type="button" onclick="fmtSobre('insertUnorderedList')">• Lista</button>
+        <button type="button" onclick="insertLinkSobre()">🔗 Link</button>
+      </div>
+      <div id="ed-sobre-editor" contenteditable="true" style="min-height:200px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;margin-bottom:15px;"></div>
+    </div>
+
+    <!-- Seções de títulos -->
+    <p style="font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);">✦ Títulos das Seções</p>
+    <div class="grid md:grid-cols-2 gap-3" style="margin-bottom:20px;">
+      <div><label class="field-label">Sobre - label</label><input class="form-input" id="ed-sobre-label" placeholder="Quem sou eu" /></div>
+      <div><label class="field-label">Sobre - título</label><input class="form-input" id="ed-sobre-title" placeholder="Sobre Mim" /></div>
+      <div><label class="field-label">Blog - label</label><input class="form-input" id="ed-blog-label" placeholder="Artigos, Tutoriais & Vídeos" /></div>
+      <div><label class="field-label">Blog - título</label><input class="form-input" id="ed-blog-title" placeholder="Blog Tech" /></div>
+      <div><label class="field-label">Blog - subtítulo</label><input class="form-input" id="ed-blog-sub" placeholder="Dicas, tutoriais, reviews e vídeos do canal" /></div>
+      <div><label class="field-label">YouTube - label</label><input class="form-input" id="ed-yt-label" placeholder="Canal no YouTube" /></div>
+      <div><label class="field-label">YouTube - título</label><input class="form-input" id="ed-yt-title" placeholder="Meus vídeos no YouTube" /></div>
+      <div><label class="field-label">YouTube - subtítulo</label><input class="form-input" id="ed-yt-sub" placeholder="Posts em formato de vídeo publicados no blog" /></div>
+      <div><label class="field-label">Loja - label</label><input class="form-input" id="ed-loja-label" placeholder="Infoprodutos" /></div>
+      <div><label class="field-label">Loja - título</label><input class="form-input" id="ed-loja-title" placeholder="Minha Loja de Infoprodutos" /></div>
+      <div><label class="field-label">Contato - label</label><input class="form-input" id="ed-contato-label" placeholder="Entre em Contato" /></div>
+      <div><label class="field-label">Contato - título</label><input class="form-input" id="ed-contato-title" placeholder="Vamos conversar?" /></div>
+      <div><label class="field-label">Rodapé</label><input class="form-input" id="ed-footer" placeholder="© 2025 Wesley de Sousa Teles · Pará de Minas, MG" /></div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button onclick="closeModal('modal-panel-editor')" class="btn-ghost">Cancelar</button>
+      <button onclick="saveSiteTexts()" class="btn-primary" id="save-texts-btn"><i class="fa-solid fa-floppy-disk"></i> Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE EDIÇÃO DE EXPERIÊNCIAS -->
+<div id="modal-experiencias" class="modal-bg" onclick="closeModalOutside(event,'modal-experiencias')">
+  <div class="modal-box modal-wide" style="max-width:700px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);"><i class="fa-solid fa-briefcase" style="color:var(--primary);margin-right:8px;"></i>Gerenciar Experiências</div>
+      <button onclick="closeModal('modal-experiencias')" style="background:var(--border);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+
+    <div id="exp-list" style="margin-bottom:20px;">
+      <div id="exp-loading-admin" style="text-align:center;padding:20px;color:var(--muted);">
+        <i class="fa-solid fa-spinner fa-spin"></i> Carregando...
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--border);padding-top:20px;">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);margin-bottom:10px;">Adicionar Nova Experiência</h3>
+      <form id="exp-form" onsubmit="saveExperience(event)" style="display:flex;flex-direction:column;gap:10px;">
+        <input type="hidden" id="exp-id-edit" value="">
+        <div><label class="field-label">Cargo</label><input type="text" id="exp-role" class="form-input" required></div>
+        <div><label class="field-label">Empresa</label><input type="text" id="exp-company" class="form-input" required></div>
+        <div><label class="field-label">Período</label><input type="text" id="exp-period" class="form-input" placeholder="Ex: Set 2025 – Atual" required></div>
+        <div><label class="field-label">Descrição</label><textarea id="exp-description" class="form-input" rows="2" required></textarea></div>
+        <div><label class="field-label">Ordem (menor = primeiro)</label><input type="number" id="exp-order" class="form-input" value="0" required></div>
+        <button type="submit" id="exp-save-btn" class="btn-primary" style="align-self:flex-start;"><i class="fa-solid fa-save"></i> Salvar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE CHECKOUT -->
+<div id="modal-checkout" class="modal-bg" onclick="closeModalOutside(event,'modal-checkout')">
+  <div class="modal-box" style="max-width:500px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--text);"><i class="fa-regular fa-credit-card" style="color:var(--primary);margin-right:8px;"></i>Finalizar Compra</div>
+      <button onclick="closeModal('modal-checkout')" style="background:var(--border);border:none;width:28px;height:28px;border-radius:7px;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div id="checkout-product-info" style="margin-bottom:20px;padding:15px;background:var(--surface);border-radius:12px;border:1px solid var(--border);">
+      <h3 id="checkout-product-title" style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:5px;"></h3>
+      <p id="checkout-product-price" style="font-size:1.4rem;font-weight:800;color:var(--neon);"></p>
+    </div>
+    <form id="checkout-form" onsubmit="processCheckout(event)">
+      <div style="margin-bottom:15px;"><label class="field-label">Nome completo</label><input type="text" id="checkout-name" class="form-input" required placeholder="Seu nome"></div>
+      <div style="margin-bottom:15px;"><label class="field-label">E-mail</label><input type="email" id="checkout-email" class="form-input" required placeholder="seu@email.com"></div>
+      <div style="margin-bottom:20px;">
+        <label class="field-label">Método de pagamento</label>
+        <div style="display:flex;gap:10px;margin-top:5px;">
+          <label style="display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex:1;cursor:pointer;"><input type="radio" name="payment-method" value="card" checked> <i class="fa-regular fa-credit-card"></i> Cartão</label>
+          <label style="display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;flex:1;cursor:pointer;"><input type="radio" name="payment-method" value="pix"> <i class="fa-brands fa-pix"></i> PIX</label>
+        </div>
+      </div>
+      <div id="card-element-container" style="margin-bottom:20px;padding:15px;background:var(--surface);border:1px solid var(--border);border-radius:10px;"><div id="card-element"></div></div>
+      <button type="submit" id="checkout-btn" class="btn-primary" style="width:100%;justify-content:center;font-size:.95rem;padding:15px;"><i class="fa-regular fa-credit-card"></i> Pagar agora</button>
+    </form>
+    <p style="text-align:center;color:var(--muted);font-size:.7rem;margin-top:15px;"><i class="fa-solid fa-lock"></i> Pagamento processado com segurança pela Stripe</p>
+  </div>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Inicializar Stripe
+  const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); // Chave pública de teste
+  const elements = stripe.elements();
+  let cardElement = null;
+
+  // Variáveis globais
+  let isDark = true;
+  let _currentPostId = null;
+  let _currentProduct = null;
+
+  // Paginação
+  let lastVisiblePost = null;
+  let hasMorePosts = true;
+  const POSTS_PER_PAGE = 6;
+
+  // Produtos da loja (mock)
+  const products = [
+    { id: 'linux-course', name: 'Curso de Linux para Iniciantes', price: 9700, description: 'Aprenda Linux do zero' },
+    { id: 'pc-guide', name: 'Guia de Montagem de PC', price: 6700, description: 'Monte seu PC passo a passo' },
+    { id: 'whatsapp-package', name: 'Pacote WhatsApp GB', price: 4700, description: 'Tudo sobre WhatsApp GB' },
+    { id: 'smartphone-review', name: 'Review de Smartphones', price: 3700, description: 'Reviews completos' }
+  ];
+
+  // ========== Utilitários ==========
+  function toggleTheme() {
+    isDark = !isDark;
+    document.body.classList.toggle('light-mode', !isDark);
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+
+  function closeMobile() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) menu.classList.remove('open');
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    const msgSpan = document.getElementById('toast-msg');
+    if (msgSpan) msgSpan.textContent = msg;
+    t.style.background = isError ? 'linear-gradient(135deg,#ef4444,#dc2626)' : 'linear-gradient(135deg,#0b74ef,#22D3EE)';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 5000);
+  }
+
+  function launchConfetti() {
+    const colors = ['#0b74ef','#22D3EE','#f97316','#22c55e','#f59e0b','#ec4899','#fff'];
+    for (let i = 0; i < 65; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.cssText = `left:${Math.random() * 100}vw;background:${colors[Math.floor(Math.random() * colors.length)]};width:${Math.random() * 8 + 5}px;height:${Math.random() * 8 + 5}px;border-radius:${Math.random() > 0.5 ? '50%' : '2px'};animation-delay:${Math.random() * 0.8}s;animation-duration:${Math.random() * 1.5 + 2}s;`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+  }
+
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add('open');
+  }
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.remove('open');
+  }
+  function closeModalOutside(e, id) {
+    if (e.target.id === id) closeModal(id);
+  }
+  function openLoginModal() { openModal('modal-login'); }
+
+  function slugify(text) {
+    return text.toString().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '').trim()
+      .replace(/\s+/g, '-').replace(/-+/g, '-');
+  }
+
+  function setPostType(type) {
+    const typeInput = document.getElementById('post-type');
+    if (typeInput) typeInput.value = type;
+    const articleBtn = document.getElementById('type-article');
+    const videoBtn = document.getElementById('type-video');
+    if (articleBtn) articleBtn.classList.toggle('active', type === 'article');
+    if (videoBtn) videoBtn.classList.toggle('active', type === 'video');
+
+    const ytField = document.getElementById('yt-field');
+    const imgField = document.getElementById('img-field');
+    const bodyField = document.getElementById('body-field');
+    const descField = document.getElementById('desc-field');
+    if (ytField) ytField.style.display = type === 'video' ? 'block' : 'none';
+    if (imgField) imgField.style.display = type === 'article' ? 'block' : 'none';
+    if (bodyField) bodyField.style.display = type === 'article' ? 'block' : 'none';
+    if (descField) descField.style.display = type === 'video' ? 'block' : 'none';
+  }
+
+  function openNewPostModal() {
+    const titleSpan = document.getElementById('post-modal-title');
+    if (titleSpan) titleSpan.textContent = 'Novo Post';
+    const idEdit = document.getElementById('post-id-edit');
+    if (idEdit) idEdit.value = '';
+    ['post-title','post-tag','post-image','post-yt-url','post-desc'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    const bodyEditor = document.getElementById('post-body-editor');
+    if (bodyEditor) bodyEditor.innerHTML = '';
+    const saveBtn = document.getElementById('save-post-btn');
+    if (saveBtn) saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicar';
+    setPostType('article');
+    openModal('modal-post-edit');
+  }
+
+  function fmt(cmd) {
+    document.execCommand(cmd, false, null);
+    const editor = document.getElementById('post-body-editor');
+    if (editor) editor.focus();
+  }
+  function fmtBlock(tag) {
+    document.execCommand('formatBlock', false, tag);
+    const editor = document.getElementById('post-body-editor');
+    if (editor) editor.focus();
+  }
+  function insertLink() {
+    const u = prompt('URL:');
+    if (u) {
+      document.execCommand('createLink', false, u);
+      const editor = document.getElementById('post-body-editor');
+      if (editor) editor.focus();
+    }
+  }
+
+  function fmtSobre(cmd) {
+    document.execCommand(cmd, false, null);
+    const editor = document.getElementById('ed-sobre-editor');
+    if (editor) editor.focus();
+  }
+  function insertLinkSobre() {
+    const u = prompt('URL:');
+    if (u) {
+      document.execCommand('createLink', false, u);
+      const editor = document.getElementById('ed-sobre-editor');
+      if (editor) editor.focus();
+    }
+  }
+
+  function extractYtId(input) {
+    if (!input) return '';
+    input = input.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+    const m = input.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : input;
+  }
+
+  async function importFromUrl() {
+    const url = prompt('Cole a URL do artigo que deseja importar:');
+    if (!url) return;
+    showToast('🔄 Importando...');
+    try {
+      const proxy = 'https://api.allorigins.win/raw?url=';
+      const response = await fetch(proxy + encodeURIComponent(url));
+      const html = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const title = doc.querySelector('title')?.innerText || doc.querySelector('h1')?.innerText || 'Título importado';
+      const titleInput = document.getElementById('post-title');
+      if (titleInput) titleInput.value = title;
+      const paragraphs = Array.from(doc.querySelectorAll('p')).map(p => p.innerText).filter(t => t.length > 30).slice(0, 10);
+      let content = '';
+      paragraphs.forEach(p => content += `<p>${p}</p>`);
+      const img = doc.querySelector('meta[property="og:image"]')?.content || doc.querySelector('img')?.src;
+      if (img) {
+        const imgInput = document.getElementById('post-image');
+        if (imgInput) imgInput.value = img;
+      }
+      const bodyEditor = document.getElementById('post-body-editor');
+      if (bodyEditor) bodyEditor.innerHTML = content;
+      showToast('✅ Conteúdo importado! Revise e ajuste.');
+    } catch (err) {
+      showToast('❌ Erro ao importar: ' + err.message, true);
+    }
+  }
+
+  // ========== Login / Logout ==========
+  async function doLogin(e) {
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    const errEl = document.getElementById('login-error');
+    if (errEl) errEl.style.display = 'none';
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Entrando...';
+      btn.disabled = true;
+    }
+    try {
+      const { auth, signInWithEmailAndPassword } = window._fb;
+      const email = document.getElementById('login-email')?.value;
+      const pass = document.getElementById('login-pass')?.value;
+      await signInWithEmailAndPassword(auth, email, pass);
+      closeModal('modal-login');
+      showToast('✅ Login realizado! Bem-vindo, Wesley!');
+    } catch (err) {
+      if (errEl) {
+        errEl.textContent = 'E-mail ou senha incorretos.';
+        errEl.style.display = 'block';
+      }
+    }
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Entrar';
+      btn.disabled = false;
+    }
+  }
+
+  async function doLogout() {
+    const { auth, signOut } = window._fb;
+    await signOut(auth);
+    showToast('👋 Logout realizado!');
+  }
+
+  // ========== Posts ==========
+  window.loadPosts = async function (reset = false) {
+    const grid = document.getElementById('blog-grid');
+    const loading = document.getElementById('blog-loading');
+    const empty = document.getElementById('blog-empty');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+
+    if (reset) {
+      lastVisiblePost = null;
+      hasMorePosts = true;
+      if (grid) grid.innerHTML = '';
+      if (loading) loading.style.display = 'block';
+      if (empty) empty.style.display = 'none';
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+    }
+    if (!hasMorePosts) return;
+
+    try {
+      const { db, collection, getDocs, query, orderBy, limit, startAfter } = window._fb;
+      let q;
+      if (lastVisiblePost) {
+        q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), startAfter(lastVisiblePost), limit(POSTS_PER_PAGE));
+      } else {
+        q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(POSTS_PER_PAGE));
+      }
+      const snap = await getDocs(q);
+
+      if (!lastVisiblePost && loading) loading.style.display = 'none';
+
+      if (snap.empty && !lastVisiblePost) {
+        if (empty) empty.style.display = 'block';
+        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+        return;
+      }
+      if (snap.empty) {
+        hasMorePosts = false;
+        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+        return;
+      }
+
+      lastVisiblePost = snap.docs[snap.docs.length - 1];
+
+      const nextQ = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), startAfter(lastVisiblePost), limit(1));
+      const nextSnap = await getDocs(nextQ);
+      hasMorePosts = !nextSnap.empty;
+
+      if (grid) {
+        snap.forEach(d => renderPostCard({ id: d.id, ...d.data() }, grid));
+      }
+      if (loadMoreBtn) loadMoreBtn.style.display = hasMorePosts ? 'inline-block' : 'none';
+    } catch (err) {
+      console.error(err);
+      if (!lastVisiblePost) {
+        if (loading) loading.style.display = 'none';
+        if (empty) empty.style.display = 'block';
+      }
+    }
+  };
+
+  function loadMorePosts() { loadPosts(false); }
+
+  window.loadYouTubePosts = async function () {
+    const grid = document.getElementById('youtube-grid');
+    const loading = document.getElementById('youtube-loading');
+    const empty = document.getElementById('youtube-empty');
+    if (loading) loading.style.display = 'block';
+    if (empty) empty.style.display = 'none';
+    if (grid) {
+      Array.from(grid.children).forEach(c => { if (c.id !== 'youtube-loading') c.remove(); });
+    }
+    try {
+      const { db, collection, getDocs, query, orderBy } = window._fb;
+      const snap = await getDocs(query(collection(db, 'posts'), orderBy('createdAt', 'desc')));
+      const videos = snap.docs.filter(d => d.data().type === 'video');
+      if (loading) loading.style.display = 'none';
+      if (videos.length === 0) {
+        if (empty) empty.style.display = 'block';
+        return;
+      }
+      if (grid) {
+        videos.forEach(d => renderYouTubeCard({ id: d.id, ...d.data() }, grid));
+      }
+    } catch (err) {
+      if (loading) loading.style.display = 'none';
+      if (empty) empty.style.display = 'block';
+      console.error(err);
+    }
+  };
+
+  function renderPostCard(p, grid) {
+    const date = p.createdAt ? new Date(p.createdAt.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+    const isVideo = p.type === 'video';
+    const card = document.createElement('div');
+    card.className = 'post-card reveal';
+    card.dataset.postId = p.id;
+    card.dataset.post = JSON.stringify({ ...p, date });
+    const thumb = isVideo && p.ytId
+      ? `<div style="position:relative;padding-bottom:52%;background:#000;overflow:hidden;"><img src="https://img.youtube.com/vi/${p.ytId}/mqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;"/><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:50px;height:50px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-play" style="color:#fff;font-size:1rem;margin-left:3px;"></i></div></div></div>`
+      : (p.image ? `<img src="${p.image}" style="width:100%;height:175px;object-fit:cover;" onerror="this.style.display='none'"/>` : '');
+    const tagLabel = isVideo ? `<i class="fa-brands fa-youtube" style="margin-right:4px;"></i>${p.tag || 'YouTube'}` : (p.tag || 'Tech');
+    card.innerHTML = `${thumb}<div style="padding:17px;"><span class="post-tag${isVideo ? ' video' : ''}">${tagLabel}</span><h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);margin:8px 0 6px;line-height:1.3;">${p.title}</h3><p style="color:var(--muted);font-size:.78rem;margin-bottom:11px;">${date}</p>${isVideo && p.desc ? `<p style="color:var(--muted);font-size:.81rem;margin-bottom:11px;line-height:1.5;">${p.desc.substring(0, 100)}${p.desc.length > 100 ? '...' : ''}</p>` : ''}<div style="display:flex;gap:6px;flex-wrap:wrap;"><button onclick="openPostView('${p.id}')" class="btn-primary" style="padding:7px 12px;font-size:.79rem;flex:1;justify-content:center;">${isVideo ? '<i class="fa-solid fa-play"></i> Assistir' : '<i class="fa-solid fa-eye"></i> Ler post'}</button>${window._adminUser ? `<button onclick="editPost('${p.id}');event.stopPropagation();" class="btn-secondary" style="padding:6px 10px;font-size:.79rem;"><i class="fa-solid fa-pen"></i></button><button onclick="confirmDeletePost('${p.id}');event.stopPropagation();" class="btn-danger" style="padding:6px 10px;font-size:.79rem;"><i class="fa-solid fa-trash"></i></button>` : ''}</div></div>`;
+    grid.appendChild(card);
+    setTimeout(() => card.classList.add('visible'), 80);
+    revObs.observe(card);
+  }
+
+  function renderYouTubeCard(p, grid) {
+    const date = p.createdAt ? new Date(p.createdAt.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+    const card = document.createElement('div');
+    card.className = 'card overflow-hidden reveal';
+    card.dataset.postId = p.id;
+    card.innerHTML = `
+      <div class="yt-embed"><iframe src="https://www.youtube.com/embed/${p.ytId}" title="${p.title}" allowfullscreen loading="lazy"></iframe></div>
+      <div class="p-5">
+        <h3 style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);margin-bottom:4px;">${p.title}</h3>
+        <p style="color:var(--muted);font-size:.84rem;margin-bottom:8px;">${p.desc || ''}</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted);font-size:.7rem;">${date}</span>
+          <button onclick="openPostView('${p.id}')" class="btn-primary" style="padding:5px 12px;font-size:.75rem;"><i class="fa-solid fa-play"></i> Assistir</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+    setTimeout(() => card.classList.add('visible'), 80);
+    revObs.observe(card);
+  }
+
+  async function savePost(e) {
+    e.preventDefault();
+    if (!window._adminUser) { showToast('Você precisa estar logado!', true); return; }
+    const btn = document.getElementById('save-post-btn');
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+      btn.disabled = true;
+    }
+    const type = document.getElementById('post-type')?.value;
+    const title = document.getElementById('post-title')?.value.trim();
+    const postData = {
+      title, slug: slugify(title),
+      tag: document.getElementById('post-tag')?.value.trim() || (type === 'video' ? 'YouTube' : 'Tech'),
+      type,
+      image: type === 'article' ? (document.getElementById('post-image')?.value.trim() || '') : '',
+      ytId: type === 'video' ? extractYtId(document.getElementById('post-yt-url')?.value) : '',
+      body: type === 'article' ? document.getElementById('post-body-editor')?.innerHTML : '',
+      desc: type === 'video' ? document.getElementById('post-desc')?.value.trim() : '',
+      createdAt: window._fb.serverTimestamp()
+    };
+    try {
+      const editId = document.getElementById('post-id-edit')?.value;
+      if (editId) {
+        const { db, doc, updateDoc } = window._fb;
+        await updateDoc(doc(db, 'posts', editId), postData);
+        showToast('✅ Post atualizado!');
+      } else {
+        const { db, collection, addDoc } = window._fb;
+        await addDoc(collection(db, 'posts'), postData);
+        showToast('✅ Post publicado!');
+        launchConfetti();
+      }
+      closeModal('modal-post-edit');
+      loadPosts(true);
+      loadYouTubePosts();
+    } catch (err) {
+      showToast('Erro: ' + err.message, true);
+      console.error(err);
+    }
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Publicar';
+      btn.disabled = false;
+    }
+  }
+
+  async function editPost(id) {
+    const { db, doc, getDoc } = window._fb;
+    try {
+      const snap = await getDoc(doc(db, 'posts', id));
+      if (!snap.exists()) return;
+      const p = snap.data();
+      const titleSpan = document.getElementById('post-modal-title');
+      if (titleSpan) titleSpan.textContent = 'Editar Post';
+      const idEdit = document.getElementById('post-id-edit');
+      if (idEdit) idEdit.value = id;
+      const titleInput = document.getElementById('post-title');
+      if (titleInput) titleInput.value = p.title || '';
+      const tagInput = document.getElementById('post-tag');
+      if (tagInput) tagInput.value = p.tag || '';
+      const imageInput = document.getElementById('post-image');
+      if (imageInput) imageInput.value = p.image || '';
+      const ytInput = document.getElementById('post-yt-url');
+      if (ytInput) ytInput.value = p.ytId || '';
+      const descInput = document.getElementById('post-desc');
+      if (descInput) descInput.value = p.desc || '';
+      const bodyEditor = document.getElementById('post-body-editor');
+      if (bodyEditor) bodyEditor.innerHTML = p.body || '';
+      const saveBtn = document.getElementById('save-post-btn');
+      if (saveBtn) saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar alterações';
+      setPostType(p.type || 'article');
+      openModal('modal-post-edit');
+    } catch (e) { showToast('Erro ao carregar post', true); }
+  }
+
+  function confirmDeletePost(id) { if (confirm('Deletar este post permanentemente?')) deletePost(id); }
+
+  async function deletePost(id) {
+    const { db, doc, deleteDoc } = window._fb;
+    try {
+      await deleteDoc(doc(db, 'posts', id));
+      showToast('🗑️ Post deletado!');
+      loadPosts(true);
+      loadYouTubePosts();
+    } catch (e) { showToast('Erro: ' + e.message, true); }
+  }
+
+  // ========== Experiências ==========
+  window.loadExperiences = async function () {
+    const container = document.getElementById('timeline-container');
+    const loading = document.getElementById('exp-loading');
+    if (loading) loading.style.display = 'block';
+
+    try {
+      const { db, doc, getDoc, setDoc } = window._fb;
+      const expDoc = doc(db, 'config', 'experiences');
+      let snap = await getDoc(expDoc);
+      let experiences = [];
+
+      if (!snap.exists()) {
+        await setDoc(expDoc, { list: [] });
+        experiences = [];
+      } else {
+        experiences = snap.data().list || [];
+      }
+
+      experiences.sort((a, b) => a.order - b.order);
+
+      if (loading) loading.style.display = 'none';
+
+      if (container) {
+        Array.from(container.children).forEach(c => {
+          if (c.id !== 'exp-loading' && !c.classList.contains('timeline-line')) c.remove();
+        });
+
+        if (experiences.length === 0) {
+          container.innerHTML += '<p style="color:var(--muted);text-align:center;">Nenhuma experiência cadastrada.</p>';
+          return;
+        }
+
+        experiences.forEach((exp, index) => {
+          const delay = index * 100;
+          const item = document.createElement('div');
+          item.className = 'timeline-item';
+          item.style.marginBottom = '26px';
+          item.style.display = 'flex';
+          item.style.alignItems = 'flex-start';
+          item.style.gap = '12px';
+          item.dataset.delay = delay;
+          item.innerHTML = `
+            <div class="timeline-dot" style="margin-top:4px;margin-left:-25px;flex-shrink:0;"></div>
+            <div class="card p-5 flex-1">
+              <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:7px;margin-bottom:5px;">
+                <div>
+                  <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:.97rem;color:var(--text);">${exp.role}</h3>
+                  <p style="color:var(--primary);font-size:.85rem;font-weight:600;margin-top:2px;">${exp.company}</p>
+                </div>
+                <span style="background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--neon);font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:100px;font-family:'Syne',sans-serif;white-space:nowrap;">${exp.period}</span>
+              </div>
+              <p style="color:var(--muted);font-size:.85rem;line-height:1.6;">${exp.description}</p>
+            </div>
+          `;
+          container.appendChild(item);
+          tlObs.observe(item);
+        });
+      }
+
+      if (window._adminUser) {
+        loadExperiencesAdmin(experiences);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar experiências:', err);
+      if (loading) loading.style.display = 'none';
+    }
+  };
+
+  async function loadExperiencesAdmin(experiences) {
+    const listDiv = document.getElementById('exp-list');
+    if (!listDiv) return;
+
+    if (experiences.length === 0) {
+      listDiv.innerHTML = '<p style="color:var(--muted);">Nenhuma experiência cadastrada. Adicione uma abaixo.</p>';
+      return;
+    }
+
+    let html = '<h3 style="font-family:\'Syne\',sans-serif;font-weight:700;color:var(--text);margin-bottom:10px;">Experiências existentes</h3>';
+    experiences.forEach((exp, index) => {
+      html += `
+        <div class="exp-item">
+          <div class="exp-info">
+            <strong>${exp.role}</strong> - ${exp.company}<br>
+            <small>${exp.period} | Ordem: ${exp.order}</small>
+          </div>
+          <div class="exp-actions">
+            <button class="exp-edit-btn" onclick="editExperience(${index})"><i class="fa-solid fa-pen"></i></button>
+            <button class="exp-delete-btn" onclick="deleteExperience(${index})"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `;
+    });
+    listDiv.innerHTML = html;
+  }
+
+  function editExperience(index) {
+    (async () => {
+      const { db, doc, getDoc } = window._fb;
+      const snap = await getDoc(doc(db, 'config', 'experiences'));
+      let experiences = [];
+      if (snap.exists()) experiences = snap.data().list || [];
+      const exp = experiences[index];
+      if (exp) {
+        const idEdit = document.getElementById('exp-id-edit');
+        if (idEdit) idEdit.value = index;
+        const roleInput = document.getElementById('exp-role');
+        if (roleInput) roleInput.value = exp.role;
+        const companyInput = document.getElementById('exp-company');
+        if (companyInput) companyInput.value = exp.company;
+        const periodInput = document.getElementById('exp-period');
+        if (periodInput) periodInput.value = exp.period;
+        const descInput = document.getElementById('exp-description');
+        if (descInput) descInput.value = exp.description;
+        const orderInput = document.getElementById('exp-order');
+        if (orderInput) orderInput.value = exp.order;
+        const saveBtn = document.getElementById('exp-save-btn');
+        if (saveBtn) saveBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Atualizar';
+      }
+    })();
+  }
+
+  async function deleteExperience(index) {
+    if (!confirm('Remover esta experiência?')) return;
+    try {
+      const { db, doc, getDoc, setDoc } = window._fb;
+      const snap = await getDoc(doc(db, 'config', 'experiences'));
+      let experiences = [];
+      if (snap.exists()) experiences = snap.data().list || [];
+      experiences.splice(index, 1);
+      await setDoc(doc(db, 'config', 'experiences'), { list: experiences });
+      showToast('✅ Experiência removida!');
+      loadExperiences();
+      const form = document.getElementById('exp-form');
+      if (form) form.reset();
+      const idEdit = document.getElementById('exp-id-edit');
+      if (idEdit) idEdit.value = '';
+      const saveBtn = document.getElementById('exp-save-btn');
+      if (saveBtn) saveBtn.innerHTML = '<i class="fa-solid fa-save"></i> Salvar';
+    } catch (err) {
+      showToast('Erro: ' + err.message, true);
+    }
+  }
+
+  async function saveExperience(e) {
+    e.preventDefault();
+    if (!window._adminUser) { showToast('Você precisa estar logado!', true); return; }
+
+    const role = document.getElementById('exp-role')?.value.trim();
+    const company = document.getElementById('exp-company')?.value.trim();
+    const period = document.getElementById('exp-period')?.value.trim();
+    const description = document.getElementById('exp-description')?.value.trim();
+    const order = parseInt(document.getElementById('exp-order')?.value) || 0;
+    const editIndex = document.getElementById('exp-id-edit')?.value;
+
+    if (!role || !company || !period || !description) return;
+
+    const newExp = { role, company, period, description, order };
+
+    try {
+      const { db, doc, getDoc, setDoc } = window._fb;
+      const snap = await getDoc(doc(db, 'config', 'experiences'));
+      let experiences = [];
+      if (snap.exists()) experiences = snap.data().list || [];
+
+      if (editIndex !== '') {
+        experiences[editIndex] = newExp;
+        showToast('✅ Experiência atualizada!');
+      } else {
+        experiences.push(newExp);
+        showToast('✅ Experiência adicionada!');
+      }
+
+      experiences.sort((a, b) => a.order - b.order);
+      await setDoc(doc(db, 'config', 'experiences'), { list: experiences });
+
+      const form = document.getElementById('exp-form');
+      if (form) form.reset();
+      const idEdit = document.getElementById('exp-id-edit');
+      if (idEdit) idEdit.value = '';
+      const saveBtn = document.getElementById('exp-save-btn');
+      if (saveBtn) saveBtn.innerHTML = '<i class="fa-solid fa-save"></i> Salvar';
+      loadExperiences();
+    } catch (err) {
+      showToast('Erro: ' + err.message, true);
+    }
+  }
+
+  // ========== Textos do site ==========
+  window.loadSiteTexts = async function () {
+    try {
+      const { db, doc, getDoc } = window._fb;
+      const snap = await getDoc(doc(db, 'config', 'siteTexts'));
+      if (!snap.exists()) return;
+      const d = snap.data();
+      const set = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.textContent = val; };
+      set('st-badge', d.badge); set('st-nome', d.nome); set('st-sobrenome', d.sobrenome);
+      set('st-cargo', d.cargo); set('st-subcargo', d.subcargo); set('st-local', d.local);
+      set('st-stat1', d.stat1); set('st-stat1-label', d.stat1Label);
+      set('st-stat2', d.stat2); set('st-stat2-label', d.stat2Label);
+      set('st-stat3', d.stat3); set('st-stat3-label', d.stat3Label);
+      set('st-sobre-label', d.sobreLabel); set('st-sobre-title', d.sobreTitle);
+      set('st-blog-label', d.blogLabel); set('st-blog-title', d.blogTitle); set('st-blog-sub', d.blogSub);
+      set('st-yt-label', d.ytLabel); set('st-yt-title', d.ytTitle); set('st-yt-sub', d.ytSub);
+      set('st-loja-label', d.lojaLabel); set('st-loja-title', d.lojaTitle);
+      set('st-contato-label', d.contatoLabel); set('st-contato-title', d.contatoTitle);
+      set('st-footer', d.footer);
+
+      const si = (id, val) => { const el = document.getElementById(id); if (el && val !== undefined) el.value = val; };
+      si('ed-badge', d.badge); si('ed-nome', d.nome); si('ed-sobrenome', d.sobrenome);
+      si('ed-cargo', d.cargo); si('ed-subcargo', d.subcargo); si('ed-local', d.local);
+      si('ed-stat1', d.stat1); si('ed-stat2', d.stat2); si('ed-stat3', d.stat3);
+      si('ed-stat1l', d.stat1Label); si('ed-stat2l', d.stat2Label); si('ed-stat3l', d.stat3Label);
+      si('ed-sobre-label', d.sobreLabel); si('ed-sobre-title', d.sobreTitle);
+      si('ed-blog-label', d.blogLabel); si('ed-blog-title', d.blogTitle); si('ed-blog-sub', d.blogSub);
+      si('ed-yt-label', d.ytLabel); si('ed-yt-title', d.ytTitle); si('ed-yt-sub', d.ytSub);
+      si('ed-loja-label', d.lojaLabel); si('ed-loja-title', d.lojaTitle);
+      si('ed-contato-label', d.contatoLabel); si('ed-contato-title', d.contatoTitle);
+      si('ed-footer', d.footer);
+
+      const sobreEl = document.getElementById('ed-sobre-editor');
+      const stSobre = document.getElementById('st-sobre');
+      if (sobreEl && d.sobre) {
+        sobreEl.innerHTML = d.sobre;
+        if (stSobre) stSobre.innerHTML = d.sobre;
+      }
+    } catch (e) { console.warn('Config não encontrada, usando padrão.'); }
+  };
+
+  async function saveSiteTexts() {
+    if (!window._adminUser) { showToast('Você precisa estar logado!', true); return; }
+    const btn = document.getElementById('save-texts-btn');
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+      btn.disabled = true;
+    }
+
+    const sobreHTML = document.getElementById('ed-sobre-editor')?.innerHTML || '';
+
+    const val = id => document.getElementById(id)?.value.trim() || '';
+    const data = {
+      badge: val('ed-badge') || 'Disponível para oportunidades',
+      nome: val('ed-nome') || 'Wesley de Sousa',
+      sobrenome: val('ed-sobrenome') || 'Teles',
+      cargo: val('ed-cargo') || 'Auxiliar de Produção & Técnico em Hardware e Linux',
+      subcargo: val('ed-subcargo') || 'Criador de Conteúdo Tech',
+      local: val('ed-local') || 'Pará de Minas, MG',
+      stat1: val('ed-stat1') || '6+', stat1Label: val('ed-stat1l') || 'Anos de experiência',
+      stat2: val('ed-stat2') || '4', stat2Label: val('ed-stat2l') || 'Empresas',
+      stat3: val('ed-stat3') || '∞', stat3Label: val('ed-stat3l') || 'Paixão por Tech',
+      sobre: sobreHTML || '',
+      sobreLabel: val('ed-sobre-label') || 'Quem sou eu',
+      sobreTitle: val('ed-sobre-title') || 'Sobre Mim',
+      blogLabel: val('ed-blog-label') || 'Artigos, Tutoriais & Vídeos',
+      blogTitle: val('ed-blog-title') || 'Blog Tech',
+      blogSub: val('ed-blog-sub') || 'Dicas, tutoriais, reviews e vídeos do canal',
+      ytLabel: val('ed-yt-label') || 'Canal no YouTube',
+      ytTitle: val('ed-yt-title') || 'Meus vídeos no YouTube',
+      ytSub: val('ed-yt-sub') || 'Posts em formato de vídeo publicados no blog',
+      lojaLabel: val('ed-loja-label') || 'Infoprodutos',
+      lojaTitle: val('ed-loja-title') || 'Minha Loja de Infoprodutos',
+      contatoLabel: val('ed-contato-label') || 'Entre em Contato',
+      contatoTitle: val('ed-contato-title') || 'Vamos conversar?',
+      footer: val('ed-footer') || '© 2025 Wesley de Sousa Teles · Pará de Minas, MG'
+    };
+
+    try {
+      const { db, doc, setDoc } = window._fb;
+      await setDoc(doc(db, 'config', 'siteTexts'), data);
+
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      set('st-badge', data.badge); set('st-nome', data.nome); set('st-sobrenome', data.sobrenome);
+      set('st-cargo', data.cargo); set('st-subcargo', data.subcargo); set('st-local', data.local);
+      set('st-stat1', data.stat1); set('st-stat1-label', data.stat1Label);
+      set('st-stat2', data.stat2); set('st-stat2-label', data.stat2Label);
+      set('st-stat3', data.stat3); set('st-stat3-label', data.stat3Label);
+      set('st-sobre-label', data.sobreLabel); set('st-sobre-title', data.sobreTitle);
+      set('st-blog-label', data.blogLabel); set('st-blog-title', data.blogTitle); set('st-blog-sub', data.blogSub);
+      set('st-yt-label', data.ytLabel); set('st-yt-title', data.ytTitle); set('st-yt-sub', data.ytSub);
+      set('st-loja-label', data.lojaLabel); set('st-loja-title', data.lojaTitle);
+      set('st-contato-label', data.contatoLabel); set('st-contato-title', data.contatoTitle);
+      set('st-footer', data.footer);
+
+      const stSobre = document.getElementById('st-sobre');
+      if (stSobre) stSobre.innerHTML = data.sobre;
+
+      closeModal('modal-panel-editor');
+      showToast('✅ Textos do site atualizados!');
+      launchConfetti();
+    } catch (err) { showToast('Erro ao salvar: ' + err.message, true); }
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar alterações';
+      btn.disabled = false;
+    }
+  }
+
+  // ========== Post View e Comentários ==========
+  async function loadComments(postId) {
+    const list = document.getElementById('comments-list');
+    if (!list) return;
+    list.innerHTML = '';
+    try {
+      const { db, collection, getDocs, query, where, orderBy } = window._fb;
+      const q = query(collection(db, 'comments'), where('postId', '==', postId), orderBy('createdAt', 'desc'));
+      const snap = await getDocs(q);
+      if (snap.empty) {
+        list.innerHTML = '<p style="color:var(--muted);font-size:.85rem;">Nenhum comentário ainda. Seja o primeiro!</p>';
+        return;
+      }
+      snap.forEach(doc => {
+        const c = doc.data();
+        const date = c.createdAt ? new Date(c.createdAt.seconds * 1000).toLocaleDateString('pt-BR') : '';
+        list.innerHTML += `
+          <div class="comment">
+            <div><span class="comment-name">${c.name}</span> <span class="comment-date">${date}</span></div>
+            <div class="comment-text">${c.comment}</div>
+          </div>
+        `;
+      });
+    } catch (err) { console.error('Erro ao carregar comentários:', err); }
+  }
+
+  async function addComment(e) {
+    e.preventDefault();
+    if (!_currentPostId) return;
+    const name = document.getElementById('comment-name')?.value.trim();
+    const text = document.getElementById('comment-text')?.value.trim();
+    if (!name || !text) return;
+
+    try {
+      const { db, collection, addDoc, serverTimestamp } = window._fb;
+      await addDoc(collection(db, 'comments'), {
+        postId: _currentPostId,
+        name: name,
+        comment: text,
+        createdAt: serverTimestamp()
+      });
+      const nameInput = document.getElementById('comment-name');
+      const textInput = document.getElementById('comment-text');
+      if (nameInput) nameInput.value = '';
+      if (textInput) textInput.value = '';
+      showToast('💬 Comentário enviado!');
+      loadComments(_currentPostId);
+    } catch (err) { showToast('Erro ao enviar comentário: ' + err.message, true); }
+  }
+
+  function openPostView(postId) {
+    const card = document.querySelector(`[data-post-id="${postId}"]`);
+    if (!card) return;
+    let p; try { p = JSON.parse(card.dataset.post); } catch (e) { return; }
+    _currentPostId = postId;
+
+    const slug = p.slug || slugify(p.title || 'post');
+    // SEO: URL real para o post
+    window.history.pushState({ postId, slug }, p.title, '/blog/' + slug);
+    // Atualiza meta tags do post
+    seoRouter.setPostMeta(p);
+
+    const isVideo = p.type === 'video';
+    const titleEl = document.getElementById('pv-title');
+    if (titleEl) titleEl.textContent = p.title;
+    const dateEl = document.getElementById('pv-date');
+    if (dateEl) dateEl.textContent = p.date || '';
+    const tagEl = document.getElementById('pv-tag');
+    if (tagEl) {
+      tagEl.className = 'post-tag' + (isVideo ? ' video' : '');
+      tagEl.innerHTML = isVideo ? `<i class="fa-brands fa-youtube" style="margin-right:4px;"></i>${p.tag || 'YouTube'}` : (p.tag || 'Tech');
+    }
+
+    const coverEl = document.getElementById('pv-cover');
+    if (coverEl) {
+      if (!isVideo && p.image) {
+        coverEl.src = p.image;
+        coverEl.style.display = 'block';
+      } else {
+        coverEl.style.display = 'none';
+      }
+    }
+
+    const ytEl = document.getElementById('pv-yt');
+    if (ytEl) {
+      if (isVideo && p.ytId) {
+        ytEl.style.display = 'block';
+        ytEl.innerHTML = `<div class="yt-embed"><iframe src="https://www.youtube.com/embed/${p.ytId}" title="${p.title}" allowfullscreen></iframe></div>`;
+      } else {
+        ytEl.style.display = 'none';
+        ytEl.innerHTML = '';
+      }
+    }
+
+    const bodyEl = document.getElementById('pv-body');
+    if (bodyEl) bodyEl.innerHTML = isVideo && p.desc ? `<p>${p.desc}</p>` : (p.body || '');
+
+    const scrollEl = document.getElementById('pv-scroll');
+    if (scrollEl) scrollEl.scrollTop = 0;
+
+    const showA = !!window._adminUser;
+    const editBtn = document.getElementById('pv-edit-btn');
+    if (editBtn) editBtn.style.display = showA ? 'inline-flex' : 'none';
+    const delBtn = document.getElementById('pv-del-btn');
+    if (delBtn) delBtn.style.display = showA ? 'inline-flex' : 'none';
+
+    loadComments(postId);
+    openModal('modal-post-view');
+  }
+
+  function closePostViewOutside(e) { if (e.target.id === 'modal-post-view') closePostView(); }
+  function closePostView() {
+    closeModal('modal-post-view');
+    _currentPostId = null;
+    window.history.pushState({}, '', '/blog');
+    seoRouter.applyRoute('/blog');
+  }
+  function copyPostUrl() {
+    const url = window.location.origin + window.location.pathname;
+    navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copiado!'));
+  }
+  function editCurrentPost() { if (_currentPostId) { closeModal('modal-post-view'); editPost(_currentPostId); } }
+  function deleteCurrentPost() { if (_currentPostId) { closeModal('modal-post-view'); confirmDeletePost(_currentPostId); } }
+
+  // ========== Roteamento ==========
+  window.handleHashRoute = async function () {
+    // Suporte legado: se ainda vier como #post/slug, redireciona
+    const hash = window.location.hash;
+    if (hash.startsWith('#post/')) {
+      const slug = hash.replace('#post/', '');
+      window.history.replaceState({}, '', '/blog/' + slug);
+    }
+    // O seoRouter cuida do resto via handlePathRoute
+    await window.handlePathRoute();
+  };
+
+  window.handlePathRoute = async function () {
+    const path = window.location.pathname;
+    if (!path.startsWith('/blog/')) return;
+    const slug = path.replace('/blog/', '').replace(/\/$/, '');
+    if (!slug) return;
+
+    const cards = document.querySelectorAll('[data-post-id]');
+    for (const card of cards) {
+      try {
+        const p = JSON.parse(card.dataset.post);
+        if ((p.slug || slugify(p.title || '')) === slug) { openPostView(p.id); return; }
+      } catch (e) { }
+    }
+
+    try {
+      const { db, collection, getDocs } = window._fb;
+      const snap = await getDocs(collection(db, 'posts'));
+      for (const d of snap.docs) {
+        const p = { id: d.id, ...d.data() };
+        if ((p.slug || slugify(p.title || '')) === slug) {
+          const date = p.createdAt ? new Date(p.createdAt.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+          const temp = document.createElement('div');
+          temp.dataset.postId = p.id; temp.dataset.post = JSON.stringify({ ...p, date }); temp.style.display = 'none';
+          document.body.appendChild(temp);
+          openPostView(p.id);
+          setTimeout(() => temp.remove(), 3000);
+          break;
+        }
+      }
+    } catch (e) { console.error(e); }
+  };
+
+  window.addEventListener('popstate', e => {
+    const path = window.location.pathname;
+    if (!path.startsWith('/blog/')) {
+      closeModal('modal-post-view');
+      seoRouter.applyRoute(path);
+    }
+  });
+
+  // ========== Produtos ==========
+  function loadProducts() {
+    const grid = document.getElementById('products-grid');
+    const loading = document.getElementById('products-loading');
+    if (loading) loading.style.display = 'none';
+    if (!grid) return;
+
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card reveal';
+      card.innerHTML = `
+        <div style="font-size:2rem;color:var(--primary);margin-bottom:10px;"><i class="fa-solid fa-box-open"></i></div>
+        <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);">${product.name}</h3>
+        <p style="color:var(--muted);font-size:.85rem;margin:8px 0;">${product.description}</p>
+        <div class="price-tag">R$ ${(product.price / 100).toFixed(2)}</div>
+        <button onclick="openCheckout('${product.id}')" class="btn-primary" style="width:100%;justify-content:center;"><i class="fa-regular fa-credit-card"></i> Comprar agora</button>
+      `;
+      grid.appendChild(card);
+      setTimeout(() => card.classList.add('visible'), 80);
+      revObs.observe(card);
+    });
+  }
+
+  function openCheckout(productId) {
+    _currentProduct = products.find(p => p.id === productId);
+    if (!_currentProduct) return;
+    const titleEl = document.getElementById('checkout-product-title');
+    const priceEl = document.getElementById('checkout-product-price');
+    if (titleEl) titleEl.textContent = _currentProduct.name;
+    if (priceEl) priceEl.textContent = `R$ ${(_currentProduct.price / 100).toFixed(2)}`;
+    if (!cardElement) {
+      cardElement = elements.create('card', { style: { base: { fontSize: '16px', color: '#424770', '::placeholder': { color: '#aab7c4' } } } });
+      cardElement.mount('#card-element');
+    }
+    openModal('modal-checkout');
+  }
+
+  async function processCheckout(e) {
+    e.preventDefault();
+    const btn = document.getElementById('checkout-btn');
+    const name = document.getElementById('checkout-name')?.value;
+    const email = document.getElementById('checkout-email')?.value;
+    const paymentMethod = document.querySelector('input[name="payment-method"]:checked')?.value;
+
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processando...';
+      btn.disabled = true;
+    }
+
+    try {
+      if (paymentMethod === 'card') {
+        const { token, error } = await stripe.createToken(cardElement);
+        if (error) {
+          showToast('Erro no cartão: ' + error.message, true);
+          if (btn) {
+            btn.innerHTML = '<i class="fa-regular fa-credit-card"></i> Pagar agora';
+            btn.disabled = false;
+          }
+          return;
+        }
+        setTimeout(() => {
+          closeModal('modal-checkout');
+          launchConfetti();
+          showToast('✅ Pagamento aprovado! Você receberá o acesso por e-mail.');
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_AVISO, { from_name: name, from_email: email, product: _currentProduct.name });
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          closeModal('modal-checkout');
+          showToast('✅ Código PIX gerado! Enviamos as instruções por e-mail.');
+        }, 1500);
+      }
+    } catch (err) {
+      showToast('Erro no pagamento: ' + err.message, true);
+      if (btn) {
+        btn.innerHTML = '<i class="fa-regular fa-credit-card"></i> Pagar agora';
+        btn.disabled = false;
+      }
+    }
+  }
+
+  // ========== Contato ==========
+  async function sendContact(e) {
+    e.preventDefault();
+    const btn = document.getElementById('contact-btn');
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+      btn.disabled = true;
+    }
+    const form = document.getElementById('contact-form');
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONTACT, {
+        from_name: form?.querySelector('[name="from_name"]')?.value,
+        from_email: form?.querySelector('[name="from_email"]')?.value,
+        subject: form?.querySelector('[name="subject"]')?.value,
+        message: form?.querySelector('[name="message"]')?.value,
+      });
+      launchConfetti();
+      showToast('✅ Mensagem enviada! Responderei em breve.');
+      if (form) form.reset();
+    } catch (err) {
+      console.error('EmailJS:', err);
+      showToast('❌ Falha no envio. Redirecionando para WhatsApp...', true);
+      window.open('https://wa.me/5537984117230?text=Olá%20Wesley,%20gostaria%20de%20falar%20sobre...', '_blank');
+    }
+    if (btn) {
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar mensagem';
+      btn.disabled = false;
+    }
+  }
+
+  // ========== Scroll Reveal ==========
+  const revObs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+  const tlObs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { const d = parseInt(e.target.dataset.delay || 0); setTimeout(() => e.target.classList.add('visible'), d); } }), { threshold: 0.2 });
+  document.querySelectorAll('.timeline-item').forEach(el => tlObs.observe(el));
+
+  // ========== Navbar shadow ==========
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (navbar) navbar.style.boxShadow = window.scrollY > 40 ? '0 4px 26px rgba(0,0,0,.3)' : 'none';
+  });
+
+  // ========== WhatsApp Draggable ==========
+  (function () {
+    const whatsappBtn = document.getElementById('whatsapp-btn');
+    if (!whatsappBtn) return;
+    let isDragging = false;
+    let offsetX, offsetY;
+    const savedPos = localStorage.getItem('whatsappPos');
+    if (savedPos) {
+      const { left, top } = JSON.parse(savedPos);
+      whatsappBtn.style.left = left;
+      whatsappBtn.style.top = top;
+      whatsappBtn.style.right = 'auto';
+      whatsappBtn.style.bottom = 'auto';
+    }
+    whatsappBtn.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      isDragging = true;
+      const rect = whatsappBtn.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+      whatsappBtn.style.transition = 'none';
+      whatsappBtn.style.cursor = 'grabbing';
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const left = e.clientX - offsetX;
+      const top = e.clientY - offsetY;
+      whatsappBtn.style.left = left + 'px';
+      whatsappBtn.style.top = top + 'px';
+      whatsappBtn.style.right = 'auto';
+      whatsappBtn.style.bottom = 'auto';
+    });
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        whatsappBtn.style.transition = '';
+        whatsappBtn.style.cursor = 'grab';
+        const left = whatsappBtn.style.left;
+        const top = whatsappBtn.style.top;
+        localStorage.setItem('whatsappPos', JSON.stringify({ left, top }));
+      }
+    });
+  })();
+
+  // ========== Inicialização ==========
+  window.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+  });
+</script>
+
+<!-- ========== AVISO SOBRE BLOQUEIO DO FIREBASE ========== -->
+<script>
+  // Detectar se o Firebase está bloqueado e mostrar mensagem amigável
+  (function checkFirebaseBlocked() {
+    const firebaseHost = 'firestore.googleapis.com';
+    const img = new Image();
+    img.onload = () => console.log('Firebase acessível.');
+    img.onerror = () => {
+      console.warn('Firestore parece bloqueado. Verifique se um bloqueador de anúncios ou extensão está interferindo.');
+    };
+    img.src = 'https://' + firebaseHost + '/favicon.ico?t=' + Date.now();
+  })();
+</script>
+
+<!-- ========== SEO ROUTER ========== -->
+<script>
+(function () {
+  'use strict';
+
+  const BASE = 'https://www.wesleytelesoficial.com.br';
+
+  const ROUTES = {
+    '/': {
+      title: 'Wesley Teles | Técnico em Hardware & Linux | Criador de Conteúdo Tech',
+      description: 'Wesley de Sousa Teles — Técnico em Hardware e Linux, Criador de Conteúdo Tech em Pará de Minas, MG. Blog, currículo, vídeos e contato.',
+      og: { type: 'website', title: 'Wesley Teles | Técnico em Hardware & Linux', description: 'Blog de tech, currículo, vídeos e infoprodutos de Wesley Teles.' },
+      breadcrumbs: [],
+      scrollTarget: '#inicio',
+      ldJson: null,
+    },
+    '/sobre': {
+      title: 'Sobre Mim – Wesley Teles | Hardware, Linux e Tech',
+      description: 'Conheça Wesley Teles: técnico em Hardware e Linux, criador de conteúdo tech em Pará de Minas, MG. Formação, habilidades e trajetória profissional.',
+      og: { type: 'profile', title: 'Sobre Wesley Teles', description: 'Habilidades, trajetória e experiências de Wesley de Sousa Teles.' },
+      breadcrumbs: [{ name: 'Sobre', url: '/sobre' }],
+      scrollTarget: '#sobre',
+    },
+    '/blog': {
+      title: 'Blog Tech – Wesley Teles | Dicas, Tutoriais e Reviews',
+      description: 'Artigos, tutoriais e reviews de hardware, Linux e tecnologia por Wesley Teles. Conteúdo prático para entusiastas de tech.',
+      og: { type: 'website', title: 'Blog Tech – Wesley Teles', description: 'Dicas, tutoriais e reviews de hardware e Linux.' },
+      breadcrumbs: [{ name: 'Blog', url: '/blog' }],
+      scrollTarget: '#blog',
+      ldJson: {
+        '@context': 'https://schema.org', '@type': 'Blog',
+        'name': 'Blog Tech – Wesley Teles', 'url': BASE + '/blog',
+        'description': 'Artigos, tutoriais e reviews de hardware, Linux e tecnologia.',
+        'inLanguage': 'pt-BR',
+        'author': { '@type': 'Person', 'name': 'Wesley de Sousa Teles', 'url': BASE }
+      },
+    },
+    '/curriculo': {
+      title: 'Currículo – Wesley Teles | Experiência Profissional',
+      description: 'Currículo de Wesley de Sousa Teles: auxiliar de produção, técnico em hardware, experiências na Ferguminas e Léo Computadores, formação e certificações.',
+      og: { type: 'profile', title: 'Currículo – Wesley Teles', description: 'Trajetória, experiências e formação de Wesley Teles.' },
+      breadcrumbs: [{ name: 'Currículo', url: '/curriculo' }],
+      scrollTarget: '#curriculo',
+    },
+    '/youtube': {
+      title: 'YouTube – Wesley Teles Oficial | Canal de Tech',
+      description: 'Vídeos do canal @wesleytelesoficial no YouTube: tutoriais, reviews de hardware e Linux. Inscreva-se e acompanhe os lançamentos.',
+      og: { type: 'website', title: 'Canal YouTube – Wesley Teles Oficial', description: 'Tutoriais, reviews e dicas tech em vídeo.' },
+      breadcrumbs: [{ name: 'YouTube', url: '/youtube' }],
+      scrollTarget: '#youtube',
+    },
+    '/loja': {
+      title: 'Loja de Infoprodutos – Wesley Teles | Cursos e Ebooks Tech',
+      description: 'Infoprodutos digitais de Wesley Teles sobre hardware, Linux e tecnologia. Pagamento seguro via Stripe. Cursos, guias e muito mais.',
+      og: { type: 'website', title: 'Loja – Infoprodutos de Tech por Wesley Teles', description: 'Ebooks e produtos digitais sobre hardware, Linux e tech.' },
+      breadcrumbs: [{ name: 'Loja', url: '/loja' }],
+      scrollTarget: '#loja',
+      ldJson: {
+        '@context': 'https://schema.org', '@type': 'Store',
+        'name': 'Loja Wesley Teles', 'url': BASE + '/loja',
+        'description': 'Infoprodutos digitais sobre hardware, Linux e tecnologia.',
+        'seller': { '@type': 'Person', 'name': 'Wesley de Sousa Teles', 'url': BASE }
+      },
+    },
+    '/contato': {
+      title: 'Contato – Wesley Teles | Fale Comigo',
+      description: 'Entre em contato com Wesley Teles por e-mail, WhatsApp ou formulário. Aberto a oportunidades profissionais e parcerias.',
+      og: { type: 'website', title: 'Contato – Wesley Teles', description: 'Fale com Wesley Teles: e-mail, telefone e redes sociais.' },
+      breadcrumbs: [{ name: 'Contato', url: '/contato' }],
+      scrollTarget: '#contato',
+      ldJson: { '@context': 'https://schema.org', '@type': 'ContactPage', 'name': 'Contato – Wesley Teles', 'url': BASE + '/contato' },
+    },
+  };
+
+  // ─── helpers de meta ───────────────────────────────────────────────
+  function setMeta(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('content', value);
+  }
+
+  function setLdDynamic(data) {
+    const el = document.getElementById('ld-dynamic');
+    if (el) el.textContent = data ? JSON.stringify(data) : '';
+  }
+
+  function setLdBreadcrumb(crumbs) {
+    const el = document.getElementById('ld-breadcrumb');
+    if (!el) return;
+    if (!crumbs || crumbs.length === 0) { el.textContent = ''; return; }
+    const items = [{ name: 'Início', url: '/' }, ...crumbs];
+    el.textContent = JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+      'itemListElement': items.map((c, i) => ({ '@type': 'ListItem', 'position': i + 1, 'name': c.name, 'item': BASE + c.url }))
+    });
+  }
+
+  function renderBreadcrumbNav(crumbs) {
+    const nav = document.getElementById('seo-breadcrumb');
+    if (!nav) return;
+    if (!crumbs || crumbs.length === 0) { nav.style.display = 'none'; return; }
+    const all = [{ name: 'Início', url: '/' }, ...crumbs];
+    nav.style.display = 'block';
+    nav.innerHTML = all.map((c, i) =>
+      i < all.length - 1
+        ? `<a href="${c.url}" data-route="${c.url}" style="color:var(--muted);text-decoration:none;">${c.name}</a> <span style="opacity:.4;margin:0 5px;">›</span>`
+        : `<span style="color:var(--neon);">${c.name}</span>`
+    ).join('');
+  }
+
+  function markActiveNavLink(path) {
+    document.querySelectorAll('[data-route]').forEach(a => {
+      const route = a.getAttribute('data-route');
+      const isActive = route === path || (path.startsWith('/blog/') && route === '/blog');
+      a.style.color = isActive ? 'var(--neon)' : '';
+    });
+  }
+
+  // ─── aplicar rota ─────────────────────────────────────────────────
+  function applyRoute(path) {
+    const route = ROUTES[path] || ROUTES['/'];
+
+    document.title = route.title;
+    const canonical = document.getElementById('meta-canonical');
+    if (canonical) canonical.setAttribute('href', BASE + path);
+    setMeta('meta-description', route.description);
+    setMeta('og-url', BASE + path);
+    setMeta('og-title', route.og.title);
+    setMeta('og-description', route.og.description);
+    setMeta('og-type', route.og.type);
+    setMeta('tw-title', route.og.title);
+    setMeta('tw-description', route.og.description);
+
+    setLdDynamic(route.ldJson || null);
+    setLdBreadcrumb(route.breadcrumbs);
+    renderBreadcrumbNav(route.breadcrumbs);
+    markActiveNavLink(path);
+
+    if (route.scrollTarget) {
+      const target = document.querySelector(route.scrollTarget);
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // ─── meta tags de post individual ────────────────────────────────
+  function setPostMeta(p) {
+    const slug = p.slug || (p.title || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+    const path = '/blog/' + slug;
+    const title = p.title + ' – Blog Wesley Teles';
+    const description = p.desc || p.body
+      ? (p.desc || p.body.replace(/<[^>]+>/g, '').substring(0, 155))
+      : 'Artigo publicado no blog tech de Wesley Teles.';
+    const image = p.image || (p.ytId ? `https://img.youtube.com/vi/${p.ytId}/mqdefault.jpg` : 'https://i.imgur.com/ne7twT3_d.webp');
+
+    document.title = title;
+    const canonical = document.getElementById('meta-canonical');
+    if (canonical) canonical.setAttribute('href', BASE + path);
+    setMeta('meta-description', description);
+    setMeta('og-url', BASE + path);
+    setMeta('og-title', p.title);
+    setMeta('og-description', description);
+    setMeta('og-type', 'article');
+    setMeta('tw-title', p.title);
+    setMeta('tw-description', description);
+
+    // JSON-LD BlogPosting
+    setLdDynamic({
+      '@context': 'https://schema.org', '@type': 'BlogPosting',
+      'headline': p.title, 'description': description,
+      'url': BASE + path,
+      'datePublished': p.createdAt ? new Date(p.createdAt.seconds * 1000).toISOString() : new Date().toISOString(),
+      'image': image,
+      'author': { '@type': 'Person', 'name': 'Wesley de Sousa Teles', 'url': BASE },
+      'publisher': { '@type': 'Person', 'name': 'Wesley de Sousa Teles', 'url': BASE }
+    });
+
+    setLdBreadcrumb([{ name: 'Blog', url: '/blog' }, { name: p.title, url: path }]);
+    renderBreadcrumbNav([{ name: 'Blog', url: '/blog' }, { name: p.title, url: path }]);
+    markActiveNavLink('/blog');
+  }
+
+  // ─── interceptar cliques nos links de rota ────────────────────────
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a[data-route]');
+    if (!a) return;
+    const route = a.getAttribute('data-route');
+    if (!ROUTES[route]) return;
+    e.preventDefault();
+    window.history.pushState({ route }, '', route);
+    applyRoute(route);
+  });
+
+  // ─── entrada inicial ──────────────────────────────────────────────
+  function handleInitialPath() {
+    // GitHub Pages SPA: recupera rota salva pelo 404.html
+    const params = new URLSearchParams(window.location.search);
+    const redirected = params.get('p');
+    if (redirected) {
+      const cleanPath = '/' + decodeURIComponent(redirected).replace(/^\//, '');
+      window.history.replaceState(null, '', cleanPath);
+    }
+
+    const path = window.location.pathname;
+    // rota de seção conhecida
+    if (ROUTES[path]) {
+      applyRoute(path);
+      return;
+    }
+    // post de blog
+    if (path.startsWith('/blog/')) {
+      markActiveNavLink('/blog');
+      setLdBreadcrumb([{ name: 'Blog', url: '/blog' }]);
+      renderBreadcrumbNav([{ name: 'Blog', url: '/blog' }]);
+      return;
+    }
+    // raiz ou desconhecido
+    applyRoute('/');
+  }
+
+  // ─── API pública ──────────────────────────────────────────────────
+  window.seoRouter = { applyRoute, setPostMeta };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleInitialPath);
+  } else {
+    handleInitialPath();
+  }
+})();
+</script>
+
+</body>
+</html>
