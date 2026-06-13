@@ -109,8 +109,7 @@
     window.addEventListener('DOMContentLoaded', async () => {
       // Verificar se os elementos críticos existem antes de prosseguir
       if (!document.getElementById('admin-bar') || !document.getElementById('admin-login-btn') || !document.getElementById('admin-logged-email')) {
-        console.error('Elementos críticos da interface não encontrados. Verifique o HTML.');
-        return;
+        console.warn('Elementos admin ausentes; continuando inicialização para carregar conteúdo público.');
       }
 
       await window.loadSiteTexts();
