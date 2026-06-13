@@ -65,12 +65,15 @@
   <script type="application/ld+json" id="ld-breadcrumb"></script>
 
   <!-- Fontes e CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://i.imgur.com/ne7twT3_d.webp">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Stripe (para checkout) -->
-  <script src="https://js.stripe.com/v3/"></script>
+  <script async src="https://js.stripe.com/v3/"></script>
 
   <!-- Firebase (módulos) -->
   <script type="module">
@@ -147,7 +150,7 @@
   </script>
 
   <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
     const EMAILJS_PUBLIC_KEY       = 'xBZMqBPhFy-eHAxf2';
     const EMAILJS_SERVICE_ID       = 'service_qlvlgxm';
@@ -989,7 +992,7 @@
       <i class="fa-solid fa-circle" style="font-size:5px;"></i><span id="st-badge">Disponível para oportunidades</span>
     </div>
     <div class="hero-photo-wrap mb-6">
-      <img src="https://i.imgur.com/ne7twT3_d.webp" alt="Wesley de Sousa Teles" />
+      <img src="https://i.imgur.com/ne7twT3_d.webp" alt="Wesley de Sousa Teles" width="156" height="156" loading="lazy" decoding="async" />
     </div>
     <h1 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;color:var(--text);margin-bottom:12px;">
       <span id="st-nome">Wesley de Sousa</span><br/><span class="gradient-text" id="st-sobrenome">Teles</span>
@@ -1183,7 +1186,7 @@
     <div class="pv-scroll" id="pv-scroll">
       <div style="max-width:700px;margin:0 auto;">
         <h1 id="pv-title" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.5rem,3.5vw,2.2rem);color:var(--text);line-height:1.2;margin-bottom:22px;"></h1>
-        <img id="pv-cover" style="width:100%;border-radius:14px;margin-bottom:24px;display:none;object-fit:cover;max-height:340px;" />
+        <img id="pv-cover" style="width:100%;border-radius:14px;margin-bottom:24px;display:none;object-fit:cover;max-height:340px;" loading="lazy" decoding="async" alt="Capa do post" />
         <div id="pv-yt" style="display:none;margin-bottom:24px;"></div>
         <div id="pv-body" class="post-content"></div>
 
@@ -1679,8 +1682,8 @@
     card.dataset.postId = p.id;
     card.dataset.post = JSON.stringify({ ...p, date });
     const thumb = isVideo && p.ytId
-      ? `<div style="position:relative;padding-bottom:52%;background:#000;overflow:hidden;"><img src="https://img.youtube.com/vi/${p.ytId}/mqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;"/><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:50px;height:50px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-play" style="color:#fff;font-size:1rem;margin-left:3px;"></i></div></div></div>`
-      : (p.image ? `<img src="${p.image}" style="width:100%;height:175px;object-fit:cover;" onerror="this.style.display='none'"/>` : '');
+      ? `<div style="position:relative;padding-bottom:52%;background:#000;overflow:hidden;"><img src="https://img.youtube.com/vi/${p.ytId}/mqdefault.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82;" loading="lazy" decoding="async"/><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><div style="width:50px;height:50px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-play" style="color:#fff;font-size:1rem;margin-left:3px;"></i></div></div></div>`
+      : (p.image ? `<img src="${p.image}" style="width:100%;height:175px;object-fit:cover;" loading="lazy" decoding="async" onerror="this.style.display='none'"/>` : '');
     const tagLabel = isVideo ? `<i class="fa-brands fa-youtube" style="margin-right:4px;"></i>${p.tag || 'YouTube'}` : (p.tag || 'Tech');
     card.innerHTML = `${thumb}<div style="padding:17px;"><span class="post-tag${isVideo ? ' video' : ''}">${tagLabel}</span><h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);margin:8px 0 6px;line-height:1.3;">${p.title}</h3><p style="color:var(--muted);font-size:.78rem;margin-bottom:11px;">${date}</p>${isVideo && p.desc ? `<p style="color:var(--muted);font-size:.81rem;margin-bottom:11px;line-height:1.5;">${p.desc.substring(0, 100)}${p.desc.length > 100 ? '...' : ''}</p>` : ''}<div style="display:flex;gap:6px;flex-wrap:wrap;"><button onclick="openPostView('${p.id}')" class="btn-primary" style="padding:7px 12px;font-size:.79rem;flex:1;justify-content:center;">${isVideo ? '<i class="fa-solid fa-play"></i> Assistir' : '<i class="fa-solid fa-eye"></i> Ler post'}</button>${window._adminUser ? `<button onclick="editPost('${p.id}');event.stopPropagation();" class="btn-secondary" style="padding:6px 10px;font-size:.79rem;"><i class="fa-solid fa-pen"></i></button><button onclick="confirmDeletePost('${p.id}');event.stopPropagation();" class="btn-danger" style="padding:6px 10px;font-size:.79rem;"><i class="fa-solid fa-trash"></i></button>` : ''}</div></div>`;
     grid.appendChild(card);
